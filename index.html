@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kingsley Kenechukwu Portfolio</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+  <style>
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: black;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:9999;
+    }
+    #preloader .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #e10600;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1.2s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    /* General */
+    body {
+      box-sizing: border-box;
+      background: black;
+      color: white;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .navbar { background-color: #000 !important; }
+    .navbar-nav .nav-link { color: #fff !important; transition: color 0.3s ease; }
+    .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover { color: #e10600 !important; }
+    .navbar-brand { font-weight: 700; letter-spacing: 1px; }
+
+    .smline { width: 50px; color: white; }
+    .text-accent { color: #e10600 !important; }
+
+    .btn-accent { background-color: #e10600; color: #fff; border: none; transition: all 0.3s; }
+    .btn-accent:hover { background-color: #b10500; color: #fff; transform: scale(1.05); }
+
+    section { padding: 60px 0; }
+    #about { border-top-right-radius: 80px; border-bottom-left-radius: 50px; }
+
+    /* Footer grid */
+    .footer { 
+      background-color: #111; color: #fff; padding: 60px 20px; font-size: 0.9rem; 
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; 
+    }
+    .footer h5 { color: #e10600; margin-bottom: 10px; }
+    .footer a { color: #e10600; text-decoration: none; transition: color 0.3s; }
+    .footer a:hover { color: #fff; text-decoration: underline; }
+
+    .contact-form input, .contact-form textarea {
+      background: #111;
+      color: #fff;
+      border: 1px solid #444;
+      transition: all 0.3s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none;
+      border-color: #e10600;
+      box-shadow: 0 0 10px #e10600;
+    }
+
+    /* Card animations */
+    .card-title { color: #e10600; transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(225, 6, 0, 0.6); }
+    .card-img-top { transition: transform 0.5s; }
+    .card:hover .card-img-top { transform: scale(1.05) rotate(1deg); }
+
+    /* Scroll-to-top button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+      background-color: #e10600;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    #scrollTopBtn:hover { background-color: #b10500; transform: scale(1.1); }
+
+    /* Star rating style */
+    input[name="rating"] { display: none; }
+    label[for^="star"] { font-size: 24px; cursor: pointer; color: #444; transition: transform 0.2s, color 0.2s; }
+    input[name="rating"]:checked ~ label[for^="star"],
+    label[for^="star"]:hover,
+    label[for^="star"]:hover ~ label { color: #e10600; transform: scale(1.2); }
+
+    /* Keyframe animations */
+    @keyframes fadeUp { 0% {opacity:0; transform:translateY(20px);} 100% {opacity:1; transform:translateY(0);} }
+    @keyframes fadeRight { 0% {opacity:0; transform:translateX(-30px);} 100% {opacity:1; transform:translateX(0);} }
+    @keyframes fadeLeft { 0% {opacity:0; transform:translateX(30px);} 100% {opacity:1; transform:translateX(0);} }
+    .fade-up { animation: fadeUp 1s ease forwards; }
+    .fade-right { animation: fadeRight 1s ease forwards; }
+    .fade-left { animation: fadeLeft 1s ease forwards; }
+  </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70" tabindex="0">
+
+<!-- Preloader -->
+<div id="preloader"><div class="spinner"></div></div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container">
+    <a class="navbar-brand text-white" href="#home">KingsDev</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#portfolioNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="portfolioNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="container-fluid py-5 text-center" id="home">
+  <div class="row align-items-center p-3">
+    <div data-aos="fade-left" class="col-md-8 text-center text-md-start">
+      <h1 class="display-4 text-accent">Hi, <strong>I'm Kingsley Kenechukwu</strong></h1>
+      <p class="lead mt-3" data-aos="fade-left" data-aos-delay="200">
+        I create <span class="text-accent">responsive, interactive websites</span> combining <span class="text-accent">great design</span> and <span class="text-accent">seamless functionality</span>.
+      </p>
+    </div>
+    <div  data-aos="fade-right" class="col-md-4 text-center">
+      <img src="images/kings2.png" class="img-fluid" alt="Kingsley">
+    </div>
+  </div>
+</div>
+
+<hr class="smline">
+
+<!-- About Section -->
+<section id="about" class="text-white">
+  <div class="text-center mb-5" data-aos="fade-up">
+    <h2 class="fw-bold">ABOUT</h2>
+    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
+  </div>
+  <div class="row align-items-center">
+    <div class="col-md-4 mb-4 text-center" data-aos="fade-right">
+      <img src="images/kings1.png" class="img-fluid rounded" alt="Kingsley">
+    </div>
+    <div class="col-md-8" data-aos="fade-left">
+      <h4 class="fw-bold text-accent mb-3">About Me</h4>
+      <p>Hello! I’m <strong>Kingsley Kenechukwu</strong>, a passionate <strong>Front-End Developer</strong> with 3 years of experience designing and building <strong>responsive, interactive websites</strong>. I specialize in <strong>HTML, CSS, JavaScript, PHP, React.js, Node.js, Tailwind CSS, and Bootstrap 5</strong>.</p>
+      <div class="row text-center text-md-start mt-4">
+        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-code-slash text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Web Development</p></div>
+        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-palette text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">UI/UX Design</p></div>
+        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-phone text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Responsive Layouts</p></div>
+        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-lightning text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Performance</p></div>
+        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-bootstrap text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Bootstrap 5</p></div>
+        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-file-earmark-text text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Clean Code</p></div>
+      </div>
+      <a href="https://docs.google.com/document/d/1e9ax71rYXhn_DNMr_qXz1_t7wR_fptPU/export?format=pdf" class="btn btn-accent mt-4" download>My Resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="bg-dark text-white">
+  <div class="text-center mb-5" data-aos="fade-up">
+    <h2 class="fw-bold">SERVICES</h2>
+    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
+  </div>
+  <div class="container" data-aos="fade-up">
+    <div class="row g-4 text-center">
+      <div class="col-md-4"><i class="bi bi-code-slash text-accent" style="font-size: 40px;"></i><h5 class="mt-3">Web Development</h5><p>Responsive, interactive websites using modern technologies.</p></div>
+      <div class="col-md-4"><i class="bi bi-palette text-accent" style="font-size: 40px;"></i><h5 class="mt-3">UI/UX Design</h5><p>User-friendly interfaces enhancing experience and engagement.</p></div>
+      <div class="col-md-4"><i class="bi bi-phone text-accent" style="font-size: 40px;"></i><h5 class="mt-3">Responsive Design</h5><p>Perfect display on all devices from desktops to mobiles.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="text-white py-5">
+  <div class="text-center mb-5" data-aos="fade-up">
+    <h2 class="fw-bold">PROJECTS</h2>
+    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
+  </div>
+  <div class="container">
+    <div class="row g-4" data-aos="fade-up">
+      <!-- Project Cards -->
+      <div class="col-md-4">
+        <div class="card bg-dark text-white h-100">
+          <img src="images/project1.png" class="card-img-top" alt="Portfolio Website">
+          <div class="card-body">
+            <h5 class="card-title text-accent">Portfolio Website</h5>
+            <p class="card-text">Built with HTML, CSS, JS, Bootstrap 5.</p>
+          </div>
+          <div class="card-footer bg-black border-top-0 text-center">
+            <a href="#" class="btn btn-outline-light btn-sm">Source Code</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-dark text-white h-100">
+          <img src="images/project2.png" class="card-img-top" alt="E-commerce Website">
+          <div class="card-body">
+            <h5 class="card-title text-accent">E-commerce Website</h5>
+            <p class="card-text">Responsive online store with clean UI & UX.</p>
+          </div>
+          <div class="card-footer bg-black border-top-0 text-center">
+            <a href="#" class="btn btn-outline-light btn-sm">Source Code</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-dark text-white h-100">
+          <img src="images/project3.png" class="card-img-top" alt="Landing Page">
+          <div class="card-body">
+            <h5 class="card-title text-accent">Landing Page</h5>
+            <p class="card-text">High-converting landing page with responsive design.</p>
+          </div>
+          <div class="card-footer bg-black border-top-0 text-center">
+            <a href="#" class="btn btn-outline-light btn-sm">Source Code</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="projects.html" class="btn btn-accent btn-lg" data-aos="zoom-in">View More Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="bg-dark text-white py-5">
+  <div class="text-center mb-5" data-aos="fade-up">
+    <h2 class="fw-bold">TESTIMONIALS</h2>
+    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
+  </div>
+
+  <div class="container" data-aos="fade-up">
+    <blockquote class="blockquote text-center">
+      <p class="mb-0">“Kingsley delivered our project on schedule and exceeded expectations, providing meticulous attention to detail and exceptional quality.”</p>
+      <footer class="blockquote-footer text-accent">Fidelis Agboh</footer>
+    </blockquote>
+    <blockquote class="blockquote text-center mt-4">
+      <p class="mb-0">“Highly recommend Kingsley for anyone looking for a professionally designed, fully responsive website that engages users and drives results.”</p>
+      <footer class="blockquote-footer text-accent">Joshua Omekanna</footer>
+    </blockquote>
+
+    <!-- Add Review Form -->
+    <div class="mt-5" data-aos="fade-up">
+      <h4 class="text-accent mb-3">Submit Your Review</h4>
+      <form id="reviewForm">
+        <div class="mb-3">
+          <input type="text" id="reviewerName" class="form-control" placeholder="Your Name" required>
+        </div>
+        <div class="mb-3">
+          <textarea id="reviewMessage" class="form-control" rows="3" placeholder="Your review here" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Rating</label>
+          <div class="d-flex gap-2">
+            <input type="radio" name="rating" id="star1" value="1" required><label for="star1">⭐</label>
+            <input type="radio" name="rating" id="star2" value="2"><label for="star2">⭐</label>
+            <input type="radio" name="rating" id="star3" value="3"><label for="star3">⭐</label>
+            <input type="radio" name="rating" id="star4" value="4"><label for="star4">⭐</label>
+            <input type="radio" name="rating" id="star5" value="5"><label for="star5">⭐</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-accent">Submit Review</button>
+      </form>
+
+      <div id="userReviews" class="mt-5"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="text-white py-5">
+  <div class="text-center mb-5" data-aos="fade-up">
+    <h2 class="fw-bold">CONTACT</h2>
+    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
+  </div>
+  <div class="container" data-aos="fade-up">
+    <form class="contact-form" action="php/contact.php" method="POST">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+        </div>
+        <div class="col-md-6">
+          <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+        </div>
+      </div>
+      <div class="mb-3 mt-3">
+        <textarea class="form-control" name="message" rows="4" placeholder="Your Message" required></textarea>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-accent">Send Message</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer text-white">
+  <div>
+    <h5>About KingsDev</h5>
+    <p>Front-End Developer & UI/UX Designer creating responsive, interactive websites with modern technologies.</p>
+  </div>
+  <div>
+    <h5>Quick Links</h5>
+    <ul class="list-unstyled">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div>
+    <h5>Contact & Social</h5>
+    <p>Email: ugwukingsley797@gmail.com</p>
+    <p>Phone: +234 912 702 3717</p>
+    <div class="d-flex gap-2">
+      <a href="#"><i class="bi bi-whatsapp text-accent fs-4"></i></a>
+      <a href="#"><i class="bi bi-linkedin text-accent fs-4"></i></a>
+      <a href="#"><i class="bi bi-github text-accent fs-4"></i></a>
+      <a href="#"><i class="bi bi-twitter text-accent fs-4"></i></a>
+    </div>
+  </div>
+  <div>
+    <h5>Legal & Credits</h5>
+    <p>&copy; 2026 Kingsley Kenechukwu. All rights reserved.</p>
+    <p>Designed & developed with <span class="text-accent">passion & care</span>.</p>
+  </div>
+</footer>
+
+<!-- Scroll-to-top Button -->
+<button id="scrollTopBtn">↑</button>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Preloader
+  window.addEventListener('load', () => {
+    setTimeout(()=>{ document.getElementById('preloader').style.display='none'; }, 1500);
+  });
+
+  // Initialize AOS
+  AOS.init({ offset: 100, duration: 1000, once: false });
+
+  // Scroll-to-top
+  const scrollBtn = document.getElementById("scrollTopBtn");
+  window.onscroll = () => { scrollBtn.style.display = (document.documentElement.scrollTop > 200) ? "block" : "none"; };
+  scrollBtn.onclick = () => { window.scrollTo({top:0, behavior:'smooth'}); };
+
+  // Handle review submission
+  const reviewForm = document.getElementById('reviewForm');
+  const userReviews = document.getElementById('userReviews');
+
+  reviewForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('reviewerName').value;
+    const message = document.getElementById('reviewMessage').value;
+    const rating = document.querySelector('input[name="rating"]:checked').value;
+
+    const reviewCard = document.createElement('div');
+    reviewCard.classList.add('bg-dark', 'text-white', 'p-3', 'mb-3', 'rounded', 'shadow-sm');
+    reviewCard.innerHTML = `<h6 class="text-accent mb-1">${name}</h6><div class="mb-2">${'🫶🏻'.repeat(rating)}</div><p>${message}</p>`;
+
+    userReviews.prepend(reviewCard);
+    reviewForm.reset();
+  });
+</script>
+</body>
+</html>
