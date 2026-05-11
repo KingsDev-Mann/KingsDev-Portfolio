@@ -2,338 +2,640 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kingsley Kenechukwu Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <title>Kingsley Kenechukwu | Front-End Developer Portfolio</title>
 
-  <!-- Bootstrap 5 -->
+  <!-- Bootstrap 5 + Icons + AOS + Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <!-- AOS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    /* Preloader */
-    #preloader {
-      position: fixed;
-      top:0; left:0; right:0; bottom:0;
-      background: black;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:9999;
+    /* ---------- LIGHT / DARK MODE (DARK DEFAULT) ---------- */
+    :root {
+      --bg-primary: #000000;
+      --bg-secondary: #111111;
+      --bg-card: #111111;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+      --border-color: #222222;
+      --navbar-bg: rgba(0,0,0,0.95);
+      --footer-bg: #111111;
+      --input-bg: #111111;
+      --input-border: #333333;
+      --testimonial-bg: #1a1a1a;
+      --contact-card-bg: #111111;
     }
-    #preloader .spinner {
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #e10600;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1.2s linear infinite;
+    body.light-mode {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f5;
+      --bg-card: #ffffff;
+      --text-primary: #000000;
+      --text-secondary: #333333;
+      --border-color: #dddddd;
+      --navbar-bg: rgba(255,255,255,0.95);
+      --footer-bg: #f5f5f5;
+      --input-bg: #ffffff;
+      --input-border: #dddddd;
+      --testimonial-bg: #f9f9f9;
+      --contact-card-bg: #ffffff;
     }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-
-    /* General */
-    body {
+    * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
-      background: black;
-      color: white;
+    }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
       scroll-behavior: smooth;
       overflow-x: hidden;
-      position: relative;
+      transition: background 0.3s ease, color 0.3s ease;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
-
-    .navbar { background-color: #000 !important; }
-    .navbar-nav .nav-link { color: #fff !important; transition: color 0.3s ease; }
-    .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover { color: #e10600 !important; }
-    .navbar-brand { font-weight: 700; letter-spacing: 1px; }
-
-    .smline { width: 50px; color: white; }
+    /* ---------- NAVBAR & SCROLL SPY ---------- */
+    .navbar {
+      background-color: var(--navbar-bg) !important;
+      backdrop-filter: blur(12px);
+      padding: 1rem 0;
+      transition: 0.3s;
+    }
+    .navbar-nav .nav-link {
+      color: var(--text-primary) !important;
+      font-weight: 500;
+      transition: 0.2s;
+      position: relative;
+      padding: 0.5rem 1rem;
+    }
+    .navbar-nav .nav-link.active {
+      color: #e10600 !important;
+    }
+    .navbar-nav .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 1rem;
+      right: 1rem;
+      height: 2px;
+      background: #e10600;
+      border-radius: 2px;
+    }
+    @media (min-width: 992px) {
+      .navbar-nav .nav-link.active::after {
+        left: 1rem;
+        right: 1rem;
+      }
+    }
+    .theme-toggle {
+      background: transparent;
+      border: 2px solid #e10600;
+      color: var(--text-primary);
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: 0.2s;
+      margin-left: 12px;
+    }
+    .theme-toggle:hover {
+      background: #e10600;
+      color: white;
+      transform: scale(0.98);
+    }
     .text-accent { color: #e10600 !important; }
 
-    .btn-accent { background-color: #e10600; color: #fff; border: none; transition: all 0.3s; }
-    .btn-accent:hover { background-color: #b10500; color: #fff; transform: scale(1.05); }
-
-    section { padding: 60px 0; }
-    #about { border-top-right-radius: 80px; border-bottom-left-radius: 50px; }
-
-    /* Footer grid */
-    .footer { 
-      background-color: #111; color: #fff; padding: 60px 20px; font-size: 0.9rem; 
-      display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; 
+    /* ---------- BUTTONS ---------- */
+    .btn-primary-custom {
+      background: #e10600;
+      color: white !important;
+      border: none;
+      padding: 10px 28px;
+      font-weight: 600;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s;
+      text-decoration: none;
     }
-    .footer h5 { color: #e10600; margin-bottom: 10px; }
-    .footer a { color: #e10600; text-decoration: none; transition: color 0.3s; }
-    .footer a:hover { color: #fff; text-decoration: underline; }
-
-    .contact-form input, .contact-form textarea {
-      background: #111;
-      color: #fff;
-      border: 1px solid #444;
-      transition: all 0.3s;
+    .btn-primary-custom:hover {
+      background: #b10500;
+      transform: translateY(-2px);
     }
-    .contact-form input:focus, .contact-form textarea:focus {
-      outline: none;
+    .btn-outline-custom {
+      border: 2px solid #e10600;
+      color: #e10600 !important;
+      background: transparent;
+      padding: 8px 26px;
+      font-weight: 600;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s;
+      text-decoration: none;
+    }
+    .btn-outline-custom:hover {
+      background: #e10600;
+      color: white !important;
+    }
+    .btn-small { padding: 6px 20px; font-size: 0.85rem; }
+
+    section { padding: 70px 0; }
+    @media (max-width: 768px) { section { padding: 50px 0; } }
+
+    /* HERO image */
+    .hero-img {
+      max-width: 260px;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .about-img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Cards & trust */
+    .trust-card, .service-card, .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      transition: 0.25s;
+    }
+    .trust-card { padding: 28px 16px; text-align: center; }
+    .trust-card:hover, .service-card:hover { border-color: #e10600; transform: translateY(-4px); }
+    .trust-number {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #e10600;
+      display: block;
+      margin: 8px 0;
+    }
+    .service-card { padding: 36px 20px; text-align: center; height: 100%; }
+    .service-icon { font-size: 44px; color: #e10600; margin-bottom: 18px; }
+
+    /* TESTIMONIALS */
+    .testimonial-card {
+      background: var(--testimonial-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 28px 26px;
+      transition: 0.2s;
+      height: 100%;
+    }
+    .testimonial-card:hover { border-color: #e10600; }
+    .testimonial-text {
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--text-primary);
+      margin: 18px 0;
+      font-style: normal;
+      font-weight: 400;
+    }
+    .testimonial-author {
+      color: #e10600;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+    .testimonial-stars {
+      color: #e10600;
+      letter-spacing: 2px;
+      margin-top: 6px;
+    }
+
+    /* TOAST */
+    .toast-notification {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: #e10600;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 60px;
+      font-weight: 600;
+      z-index: 1100;
+      opacity: 0;
+      transition: 0.2s ease;
+      pointer-events: none;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      white-space: nowrap;
+      font-size: 0.9rem;
+    }
+    .toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* filter btns */
+    .filter-btn {
+      background: transparent;
+      border: 2px solid #e10600;
+      color: var(--text-primary);
+      padding: 6px 22px;
+      margin: 4px;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: #e10600;
+      color: white;
+    }
+
+    /* skill bars */
+    .skill-bar {
+      height: 5px;
+      background: var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .skill-progress {
+      height: 100%;
+      background: #e10600;
+      width: 0;
+      transition: width 0.9s ease;
+    }
+    .badge-tech {
+      background: #e10600;
+      color: white;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      border-radius: 20px;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    /* rating stars */
+    .rating-input {
+      display: flex;
+      gap: 8px;
+      direction: rtl;
+      justify-content: flex-start;
+    }
+    .rating-input input { display: none; }
+    .rating-input label {
+      font-size: 26px;
+      color: #555;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+    .rating-input input:checked ~ label,
+    .rating-input label:hover,
+    .rating-input label:hover ~ label { color: #e10600; }
+
+    /* CONTACT SECTION - improved readability */
+    .contact-info-card {
+      background: var(--contact-card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 32px 24px;
+      height: 100%;
+      transition: 0.2s;
+    }
+    .contact-info-card:hover {
       border-color: #e10600;
-      box-shadow: 0 0 10px #e10600;
+    }
+    .contact-icon {
+      width: 55px;
+      height: 55px;
+      background: rgba(225,6,0,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .contact-icon i {
+      font-size: 28px;
+      color: #e10600;
+    }
+    .contact-info-card h5 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    .contact-info-card p {
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+    .contact-info-card .contact-detail {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      font-weight: 500;
     }
 
-    /* Card animations */
-    .card-title { color: #e10600; transition: transform 0.3s, box-shadow 0.3s; }
-    .card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(225, 6, 0, 0.6); }
-    .card-img-top { transition: transform 0.5s; }
-    .card:hover .card-img-top { transform: scale(1.05) rotate(1deg); }
+    /* footer */
+    .footer {
+      background: var(--footer-bg);
+      padding: 50px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 30px;
+      border-top: 1px solid var(--border-color);
+    }
+    .footer h5 { color: #e10600; margin-bottom: 18px; font-weight: 700; }
+    .footer ul { list-style: none; padding: 0; }
+    .footer ul li { margin-bottom: 10px; }
+    .footer a { color: var(--text-secondary); text-decoration: none; transition: 0.2s; }
+    .footer a:hover { color: #e10600; text-decoration: underline; }
+    .social-links { display: flex; gap: 18px; margin-top: 12px; flex-wrap: wrap; }
+    .social-links a { font-size: 1.6rem; color: #e10600; transition: 0.2s; }
+    .social-links a:hover { color: var(--text-primary); transform: translateY(-3px); }
 
-    /* Scroll-to-top button */
+    /* floating buttons */
     #scrollTopBtn {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      display: none;
-      background-color: #e10600;
+      bottom: 28px;
+      right: 28px;
+      background: #e10600;
       color: white;
-      border: none;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      z-index: 99;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    #scrollTopBtn:hover { background: #b10500; transform: scale(1.05); }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      background: #25D366;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+      z-index: 99;
+      transition: 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-decoration: none;
+    }
+    .whatsapp-float:hover { transform: scale(1.08); background: #128C7E; color: white; }
+
+    /* modal & preloader */
+    .modal-content { background: var(--bg-card); border-radius: 20px; border: 1px solid #e10600; }
+    .close-btn { background: none; border: none; font-size: 28px; color: var(--text-primary); }
+    #preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .spinner {
       width: 50px;
       height: 50px;
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 100;
-      transition: all 0.3s;
+      border: 5px solid #222;
+      border-top: 5px solid #e10600;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
     }
-    #scrollTopBtn:hover { background-color: #b10500; transform: scale(1.1); }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .typed-text { font-size: 1.3rem; font-weight: 500; color: #e10600; }
 
-    /* Star rating style */
-    input[name="rating"] { display: none; }
-    label[for^="star"] { font-size: 24px; cursor: pointer; color: #444; transition: transform 0.2s, color 0.2s; }
-    input[name="rating"]:checked ~ label[for^="star"],
-    label[for^="star"]:hover,
-    label[for^="star"]:hover ~ label { color: #e10600; transform: scale(1.2); }
-
-    /* Keyframe animations */
-    @keyframes fadeUp { 0% {opacity:0; transform:translateY(20px);} 100% {opacity:1; transform:translateY(0);} }
-    @keyframes fadeRight { 0% {opacity:0; transform:translateX(-30px);} 100% {opacity:1; transform:translateX(0);} }
-    @keyframes fadeLeft { 0% {opacity:0; transform:translateX(30px);} 100% {opacity:1; transform:translateX(0);} }
-    .fade-up { animation: fadeUp 1s ease forwards; }
-    .fade-right { animation: fadeRight 1s ease forwards; }
-    .fade-left { animation: fadeLeft 1s ease forwards; }
+    /* contact form readability */
+    .contact-form input, .contact-form textarea {
+      background: var(--input-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      transition: 0.2s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      border-color: #e10600;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(225,6,0,0.1);
+    }
+    .contact-form label {
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
   </style>
 </head>
-<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70" tabindex="0">
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
 
-<!-- Preloader -->
 <div id="preloader"><div class="spinner"></div></div>
+<div id="toastNotification" class="toast-notification"><i class="fas fa-code"></i> Project coming soon!</div>
 
-<!-- Navbar -->
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container">
-    <a class="navbar-brand text-white" href="#home">KingsDev</a>
+    <a class="navbar-brand fw-bold fs-3" href="#home">Kings<span class="text-accent">Dev</span></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#portfolioNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="portfolioNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
         <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
       </ul>
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon me-1"></i> <span id="themeText">Dark</span></button>
     </div>
   </div>
 </nav>
 
-<!-- Hero Section -->
-<div class="container-fluid py-5 text-center" id="home">
-  <div class="row align-items-center p-3">
-    <div data-aos="fade-left" class="col-md-8 text-center text-md-start">
-      <h1 class="display-4 text-accent">Hi, <strong>I'm Kingsley Kenechukwu</strong></h1>
-      <p class="lead mt-3" data-aos="fade-left" data-aos-delay="200">
-        I create <span class="text-accent">responsive, interactive websites</span> combining <span class="text-accent">great design</span> and <span class="text-accent">seamless functionality</span>.
-      </p>
-    </div>
-    <div  data-aos="fade-right" class="col-md-4 text-center">
-      <img src="images/kings2.png" class="img-fluid" alt="Kingsley">
+<!-- HERO -->
+<div class="container hero-section" id="home" style="min-height: 90vh; display: flex; align-items: center;">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7 text-center text-lg-start" data-aos="fade-right">
+        <h1 class="display-4 fw-bold">Hi, I'm <span class="text-accent">Kingsley Kenechukwu</span></h1>
+        <div class="typed-text my-3"><span id="typed-words"></span></div>
+        <p class="lead">I create <span class="text-accent">responsive, interactive websites</span> combining great design and seamless functionality.</p>
+        <div class="d-flex gap-3 flex-wrap mt-4">
+          <a href="#contact" class="btn-primary-custom">Hire Me <i class="fas fa-arrow-right"></i></a>
+          <a href="#projects" class="btn-outline-custom">View Work <i class="fas fa-code"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-5 text-center mt-4 mt-lg-0" data-aos="fade-left">
+        <img src="images/kings2.png" class="hero-img" alt="Kingsley">
+      </div>
     </div>
   </div>
 </div>
 
-<hr class="smline">
-
-<!-- About Section -->
-<section id="about" class="text-white">
-  <div class="text-center mb-5" data-aos="fade-up">
-    <h2 class="fw-bold">ABOUT</h2>
-    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
-  </div>
-  <div class="row align-items-center">
-    <div class="col-md-4 mb-4 text-center" data-aos="fade-right">
-      <img src="images/kings1.png" class="img-fluid rounded" alt="Kingsley">
-    </div>
-    <div class="col-md-8" data-aos="fade-left">
-      <h4 class="fw-bold text-accent mb-3">About Me</h4>
-      <p>Hello! I’m <strong>Kingsley Kenechukwu</strong>, a passionate <strong>Front-End Developer</strong> with 3 years of experience designing and building <strong>responsive, interactive websites</strong>. I specialize in <strong>HTML, CSS, JavaScript, PHP, React.js, Node.js, Tailwind CSS, and Bootstrap 5</strong>.</p>
-      <div class="row text-center text-md-start mt-4">
-        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-code-slash text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Web Development</p></div>
-        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-palette text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">UI/UX Design</p></div>
-        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-phone text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Responsive Layouts</p></div>
-        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-lightning text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Performance</p></div>
-        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-bootstrap text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Bootstrap 5</p></div>
-        <div class="col-6 col-sm-4 mb-3"><i class="bi bi-file-earmark-text text-accent" style="font-size: 24px;"></i><p class="mb-0 mt-2">Clean Code</p></div>
-      </div>
-      <a href="https://docs.google.com/document/d/1e9ax71rYXhn_DNMr_qXz1_t7wR_fptPU/export?format=pdf" class="btn btn-accent mt-4" download>My Resume</a>
-    </div>
-  </div>
-</section>
-
-<!-- Services Section -->
-<section id="services" class="bg-dark text-white">
-  <div class="text-center mb-5" data-aos="fade-up">
-    <h2 class="fw-bold">SERVICES</h2>
-    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
-  </div>
-  <div class="container" data-aos="fade-up">
-    <div class="row g-4 text-center">
-      <div class="col-md-4"><i class="bi bi-code-slash text-accent" style="font-size: 40px;"></i><h5 class="mt-3">Web Development</h5><p>Responsive, interactive websites using modern technologies.</p></div>
-      <div class="col-md-4"><i class="bi bi-palette text-accent" style="font-size: 40px;"></i><h5 class="mt-3">UI/UX Design</h5><p>User-friendly interfaces enhancing experience and engagement.</p></div>
-      <div class="col-md-4"><i class="bi bi-phone text-accent" style="font-size: 40px;"></i><h5 class="mt-3">Responsive Design</h5><p>Perfect display on all devices from desktops to mobiles.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- Projects Section -->
-<section id="projects" class="text-white py-5">
-  <div class="text-center mb-5" data-aos="fade-up">
-    <h2 class="fw-bold">PROJECTS</h2>
-    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
-  </div>
+<!-- TRUST SECTION -->
+<section id="trustSection">
   <div class="container">
-    <div class="row g-4" data-aos="fade-up">
-      <!-- Project Cards -->
-      <div class="col-md-4">
-        <div class="card bg-dark text-white h-100">
-          <img src="images/project1.png" class="card-img-top" alt="Portfolio Website">
-          <div class="card-body">
-            <h5 class="card-title text-accent">Portfolio Website</h5>
-            <p class="card-text">Built with HTML, CSS, JS, Bootstrap 5.</p>
-          </div>
-          <div class="card-footer bg-black border-top-0 text-center">
-            <a href="#" class="btn btn-outline-light btn-sm">Source Code</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card bg-dark text-white h-100">
-          <img src="images/project2.png" class="card-img-top" alt="E-commerce Website">
-          <div class="card-body">
-            <h5 class="card-title text-accent">E-commerce Website</h5>
-            <p class="card-text">Responsive online store with clean UI & UX.</p>
-          </div>
-          <div class="card-footer bg-black border-top-0 text-center">
-            <a href="#" class="btn btn-outline-light btn-sm">Source Code</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card bg-dark text-white h-100">
-          <img src="images/project3.png" class="card-img-top" alt="Landing Page">
-          <div class="card-body">
-            <h5 class="card-title text-accent">Landing Page</h5>
-            <p class="card-text">High-converting landing page with responsive design.</p>
-          </div>
-          <div class="card-footer bg-black border-top-0 text-center">
-            <a href="#" class="btn btn-outline-light btn-sm">Source Code</a>
-          </div>
-        </div>
-      </div>
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="fw-bold">Trust Me With Your <span class="text-accent">Work</span></h2>
+      <hr style="width: 70px; height: 3px; background: #e10600; border: 0; margin: 18px auto;">
+      <p class="lead">I deliver quality, on time, every time</p>
     </div>
-    <div class="text-center mt-4">
-      <a href="projects.html" class="btn btn-accent btn-lg" data-aos="zoom-in">View More Projects</a>
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6" data-aos="flip-left" data-aos-delay="100"><div class="trust-card"><i class="fas fa-code fa-2x text-accent"></i><span class="trust-number" id="projectsCount">0</span><p>Projects Completed</p></div></div>
+      <div class="col-md-3 col-sm-6" data-aos="flip-left" data-aos-delay="200"><div class="trust-card"><i class="fas fa-smile fa-2x text-accent"></i><span class="trust-number" id="clientsCount">0</span><p>Happy Clients</p></div></div>
+      <div class="col-md-3 col-sm-6" data-aos="flip-left" data-aos-delay="300"><div class="trust-card"><i class="fas fa-clock fa-2x text-accent"></i><span class="trust-number" id="deliveryCount">0</span><p>On-Time Delivery</p></div></div>
+      <div class="col-md-3 col-sm-6" data-aos="flip-left" data-aos-delay="400"><div class="trust-card"><i class="fas fa-star fa-2x text-accent"></i><span class="trust-number" id="ratingCount">0</span><p>Client Rating</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- Testimonials Section -->
-<section id="testimonials" class="bg-dark text-white py-5">
-  <div class="text-center mb-5" data-aos="fade-up">
-    <h2 class="fw-bold">TESTIMONIALS</h2>
-    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
-  </div>
-
-  <div class="container" data-aos="fade-up">
-    <blockquote class="blockquote text-center">
-      <p class="mb-0">“Kingsley delivered our project on schedule and exceeded expectations, providing meticulous attention to detail and exceptional quality.”</p>
-      <footer class="blockquote-footer text-accent">Fidelis Agboh</footer>
-    </blockquote>
-    <blockquote class="blockquote text-center mt-4">
-      <p class="mb-0">“Highly recommend Kingsley for anyone looking for a professionally designed, fully responsive website that engages users and drives results.”</p>
-      <footer class="blockquote-footer text-accent">Joshua Omekanna</footer>
-    </blockquote>
-
-    <!-- Add Review Form -->
-    <div class="mt-5" data-aos="fade-up">
-      <h4 class="text-accent mb-3">Submit Your Review</h4>
-      <form id="reviewForm">
-        <div class="mb-3">
-          <input type="text" id="reviewerName" class="form-control" placeholder="Your Name" required>
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">ABOUT <span class="text-accent">ME</span></h2><hr style="width: 60px; height: 3px; background: #e10600; border:0; margin: 16px auto;"></div>
+    <div class="row align-items-center">
+      <div class="col-lg-4 text-center mb-4" data-aos="fade-right"><img src="images/kings1.png" class="about-img" alt="Kingsley"></div>
+      <div class="col-lg-8" data-aos="fade-left">
+        <h4 class="fw-bold text-accent">Who Am I?</h4>
+        <p>Front-End Developer with 3+ years of experience building responsive, high-performance websites. I blend modern design with clean code.</p>
+        <div class="row mt-3">
+          <div class="col-md-6"><div class="skill-item"><span class="skill-name">HTML/CSS</span><div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">JavaScript</span><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">React.js</span><div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div></div></div>
+          <div class="col-md-6"><div class="skill-item"><span class="skill-name">Bootstrap/Tailwind</span><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Node.js</span><div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">PHP</span><div class="skill-bar"><div class="skill-progress" style="width: 82%"></div></div></div></div>
         </div>
-        <div class="mb-3">
-          <textarea id="reviewMessage" class="form-control" rows="3" placeholder="Your review here" required></textarea>
+        <div class="d-flex gap-3 flex-wrap mt-4">
+          <button class="btn-primary-custom btn-small" data-bs-toggle="modal" data-bs-target="#portfolioModal"><i class="fas fa-eye"></i> View Portfolio</button>
+          <a href="UGWU_KINGSLEY_KENECHUKWU_POLISHED_CV.pdf" class="btn-outline-custom btn-small" download><i class="fas fa-download"></i> Download CV</a>
+          <a href="#contact" class="btn-outline-custom btn-small"><i class="fas fa-envelope"></i> Contact Me</a>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Rating</label>
-          <div class="d-flex gap-2">
-            <input type="radio" name="rating" id="star1" value="1" required><label for="star1">⭐</label>
-            <input type="radio" name="rating" id="star2" value="2"><label for="star2">⭐</label>
-            <input type="radio" name="rating" id="star3" value="3"><label for="star3">⭐</label>
-            <input type="radio" name="rating" id="star4" value="4"><label for="star4">⭐</label>
-            <input type="radio" name="rating" id="star5" value="5"><label for="star5">⭐</label>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-accent">Submit Review</button>
-      </form>
-
-      <div id="userReviews" class="mt-5"></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Contact Section -->
-<section id="contact" class="text-white py-5">
-  <div class="text-center mb-5" data-aos="fade-up">
-    <h2 class="fw-bold">CONTACT</h2>
-    <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #e10600; border: none;">
-  </div>
-  <div class="container" data-aos="fade-up">
-    <form class="contact-form" action="php/contact.php" method="POST">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <input type="text" class="form-control" name="name" placeholder="Your Name" required>
-        </div>
-        <div class="col-md-6">
-          <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-        </div>
-      </div>
-      <div class="mb-3 mt-3">
-        <textarea class="form-control" name="message" rows="4" placeholder="Your Message" required></textarea>
-      </div>
-      <div class="text-center">
-        <button type="submit" class="btn btn-accent">Send Message</button>
-      </div>
-    </form>
+<!-- MODAL for PDF preview -->
+<div class="modal fade" id="portfolioModal" tabindex="-1"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-accent">Portfolio / CV</h5><button type="button" class="close-btn" data-bs-dismiss="modal">&times;</button></div><div class="modal-body p-0"><iframe src="UGWU_KINGSLEY_KENECHUKWU_POLISHED_CV.pdf" class="pdf-preview" style="width:100%; height:70vh; border:none;"></iframe></div><div class="modal-footer"><a href="UGWU_KINGSLEY_KENECHUKWU_POLISHED_CV.pdf" class="btn-primary-custom btn-small" download><i class="fas fa-download"></i> Download CV</a><button class="btn-outline-custom btn-small" data-bs-dismiss="modal">Close</button></div></div></div></div>
+
+<!-- SERVICES -->
+<section id="services" class="bg-dark">
+  <div class="container"><div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">MY <span class="text-accent">SERVICES</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"></div>
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="service-card"><i class="fas fa-code service-icon"></i><h5>Web Development</h5><p>Modern, scalable websites with great UX.</p></div></div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="service-card"><i class="fas fa-palette service-icon"></i><h5>UI/UX Design</h5><p>Intuitive interfaces that users love.</p></div></div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300"><div class="service-card"><i class="fas fa-mobile-alt service-icon"></i><h5>Responsive Design</h5><p>Flawless on mobiles, tablets, desktops.</p></div></div>
+    </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer text-white">
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container"><div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">MY <span class="text-accent">PROJECTS</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"></div>
+    <div class="text-center mb-4" data-aos="fade-up"><button class="filter-btn active" data-filter="all">All</button><button class="filter-btn" data-filter="web">Web Apps</button><button class="filter-btn" data-filter="ecommerce">E-commerce</button><button class="filter-btn" data-filter="landing">Landing</button></div>
+    <div class="row g-4" id="projectsContainer">
+      <div class="col-md-4 project-item" data-category="web" data-aos="flip-up"><div class="card h-100"><img src="images/project1.png" class="card-img-top" alt="portfolio"><div class="card-body"><h5 class="card-title">Portfolio Website</h5><p class="small">Modern portfolio with smooth UI.</p><div><span class="badge-tech">HTML/CSS</span><span class="badge-tech">JS</span><span class="badge-tech">Bootstrap</span></div></div><div class="card-footer bg-transparent border-0 text-center"><button class="btn-outline-custom btn-small project-btn">Live Demo</button></div></div></div>
+      <div class="col-md-4 project-item" data-category="ecommerce" data-aos="flip-up"><div class="card h-100"><img src="images/project2.png" class="card-img-top" alt="ecommerce"><div class="card-body"><h5 class="card-title">E‑commerce Store</h5><p class="small">Full cart + payment flow.</p><div><span class="badge-tech">React</span><span class="badge-tech">Node.js</span></div></div><div class="card-footer bg-transparent border-0 text-center"><button class="btn-outline-custom btn-small project-btn">Live Demo</button></div></div></div>
+      <div class="col-md-4 project-item" data-category="landing" data-aos="flip-up"><div class="card h-100"><img src="images/project3.png" class="card-img-top" alt="landing"><div class="card-body"><h5 class="card-title">Landing Page</h5><p class="small">High‑conversion design.</p><div><span class="badge-tech">Tailwind</span><span class="badge-tech">JS</span></div></div><div class="card-footer bg-transparent border-0 text-center"><button class="btn-outline-custom btn-small project-btn">Live Demo</button></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="bg-dark">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">CLIENT <span class="text-accent">TESTIMONIALS</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"><p class="lead">What my clients say</p></div>
+    <div class="row mb-5">
+      <div class="col-md-6 mb-4" data-aos="fade-right"><div class="testimonial-card"><i class="fas fa-quote-left fa-2x text-accent"></i><div class="testimonial-text">"Kingsley delivered on schedule and exceeded expectations. Meticulous attention to detail and exceptional quality."</div><div class="testimonial-author"><strong>Fidelis Agboh</strong><div class="testimonial-stars">★★★★★</div></div></div></div>
+      <div class="col-md-6 mb-4" data-aos="fade-left"><div class="testimonial-card"><i class="fas fa-quote-left fa-2x text-accent"></i><div class="testimonial-text">"Highly recommend Kingsley for a professionally designed, responsive website that drives results."</div><div class="testimonial-author"><strong>Joshua Omekanna</strong><div class="testimonial-stars">★★★★★</div></div></div></div>
+    </div>
+    <div class="row justify-content-center" data-aos="zoom-in"><div class="col-md-8"><div class="card p-4"><h4 class="text-accent">Leave a Review</h4><form id="reviewForm"><input type="text" id="reviewerName" class="form-control mb-3" placeholder="Your Name"><textarea id="reviewMessage" class="form-control mb-3" rows="3" placeholder="Your feedback..."></textarea><div class="mb-3"><label class="mb-1">Rating</label><div class="rating-input"><input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label><input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label><input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label><input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label><input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label></div></div><button type="submit" class="btn-primary-custom btn-small">Submit Review <i class="fas fa-paper-plane"></i></button></form><div id="userReviews" class="mt-4"></div></div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION - IMPROVED READABILITY -->
+<section id="contact">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="fw-bold">GET IN <span class="text-accent">TOUCH</span></h2>
+      <hr style="width: 60px; height: 3px; background: #e10600; border: 0; margin: 16px auto;">
+      <p class="lead">Let's work together. Reach out anytime!</p>
+    </div>
+    <div class="row g-4">
+      <!-- Contact Info Cards - Clean & Readable -->
+      <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
+        <div class="contact-info-card">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <h5>Email Me</h5>
+          <p class="contact-detail">ugwukingsley797@gmail.com</p>
+          <p class="small text-secondary">I'll respond within 24 hours</p>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-right" data-aos-delay="200">
+        <div class="contact-info-card">
+          <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+          <h5>Call / WhatsApp</h5>
+          <p class="contact-detail">+234 912 702 3717</p>
+          <p class="small text-secondary">Mon-Fri, 9am - 6pm WAT</p>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-right" data-aos-delay="300">
+        <div class="contact-info-card">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <h5>Location</h5>
+          <p class="contact-detail">Nigeria (Remote / Worldwide)</p>
+          <p class="small text-secondary">Available for global projects</p>
+        </div>
+      </div>
+    </div>
+    <!-- Contact Form Card -->
+    <div class="row mt-5" data-aos="fade-up">
+      <div class="col-12">
+        <div class="card p-4 p-md-5">
+          <h4 class="text-accent mb-4">Send me a message</h4>
+          <form class="contact-form" id="contactForm">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <label class="form-label">Full name</label>
+                <input type="text" class="form-control" name="name" placeholder="e.g., John Doe" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email address</label>
+                <input type="email" class="form-control" name="email" placeholder="hello@example.com" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Subject</label>
+                <input type="text" class="form-control" name="subject" placeholder="Project inquiry / Collaboration" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Message</label>
+                <textarea class="form-control" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+              </div>
+              <div class="col-12 text-center">
+                <button type="submit" class="btn-primary-custom px-5">Send Message <i class="fas fa-paper-plane ms-2"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER - Fixed Links -->
+<footer class="footer">
   <div>
-    <h5>About KingsDev</h5>
-    <p>Front-End Developer & UI/UX Designer creating responsive, interactive websites with modern technologies.</p>
+    <h5>KingsDev</h5>
+    <p>Front-End Developer crafting high-quality, responsive web experiences.</p>
   </div>
   <div>
     <h5>Quick Links</h5>
-    <ul class="list-unstyled">
+    <ul>
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -343,60 +645,155 @@
     </ul>
   </div>
   <div>
-    <h5>Contact & Social</h5>
-    <p>Email: ugwukingsley797@gmail.com</p>
-    <p>Phone: +234 912 702 3717</p>
-    <div class="d-flex gap-2">
-      <a href="#"><i class="bi bi-whatsapp text-accent fs-4"></i></a>
-      <a href="#"><i class="bi bi-linkedin text-accent fs-4"></i></a>
-      <a href="#"><i class="bi bi-github text-accent fs-4"></i></a>
-      <a href="#"><i class="bi bi-twitter text-accent fs-4"></i></a>
+    <h5>Connect</h5>
+    <p><i class="fas fa-envelope me-2"></i> ugwukingsley797@gmail.com</p>
+    <p><i class="fas fa-phone me-2"></i> +234 912 702 3717</p>
+    <div class="social-links">
+      <a href="https://www.facebook.com/share/18MmvwXQrC/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.linkedin.com/in/ugwu-kingsley-379203282" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
     </div>
   </div>
   <div>
-    <h5>Legal & Credits</h5>
-    <p>&copy; 2026 Kingsley Kenechukwu. All rights reserved.</p>
-    <p>Designed & developed with <span class="text-accent">passion & care</span>.</p>
+    <h5>Work With Me</h5>
+    <p>Available for freelance & full-time opportunities.</p>
+    <a href="#contact" class="btn-primary-custom btn-small">Start a Project →</a>
   </div>
 </footer>
 
-<!-- Scroll-to-top Button -->
-<button id="scrollTopBtn">↑</button>
+<button id="scrollTopBtn"><i class="fas fa-arrow-up"></i></button>
+<a href="https://wa.me/2349127023717?text=Hello%20Kingsley%2C%20I%20saw%20your%20portfolio%20and%20I'm%20interested!" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-<!-- Scripts -->
+<!-- Tawk.to (original working script) -->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a010f1e11568a1c34746732/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // Preloader
-  window.addEventListener('load', () => {
-    setTimeout(()=>{ document.getElementById('preloader').style.display='none'; }, 1500);
+  AOS.init({ duration: 700, once: false, mirror: true, offset: 80 });
+  const spy = new bootstrap.ScrollSpy(document.body, { target: '.navbar', offset: 70 });
+
+  window.addEventListener('load', () => { 
+    setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 600); 
+    document.querySelectorAll('.skill-progress').forEach(p => { let w = p.style.width; p.style.width = '0'; setTimeout(() => p.style.width = w, 200); });
   });
 
-  // Initialize AOS
-  AOS.init({ offset: 100, duration: 1000, once: false });
-
-  // Scroll-to-top
   const scrollBtn = document.getElementById("scrollTopBtn");
-  window.onscroll = () => { scrollBtn.style.display = (document.documentElement.scrollTop > 200) ? "block" : "none"; };
-  scrollBtn.onclick = () => { window.scrollTo({top:0, behavior:'smooth'}); };
+  window.onscroll = () => { scrollBtn.style.display = window.scrollY > 250 ? "flex" : "none"; };
+  scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // Handle review submission
-  const reviewForm = document.getElementById('reviewForm');
-  const userReviews = document.getElementById('userReviews');
+  // typed effect
+  const words = ['Web Developer', 'UI/UX Designer', 'Problem Solver', 'Creative Thinker'];
+  let idx = 0, ch = 0, del = false;
+  const typedEl = document.getElementById('typed-words');
+  function typeEffect() {
+    let current = words[idx];
+    typedEl.innerText = del ? current.substring(0, ch-1) : current.substring(0, ch+1);
+    del ? ch-- : ch++;
+    if (!del && ch === current.length) { del = true; setTimeout(typeEffect, 2000); }
+    else if (del && ch === 0) { del = false; idx = (idx+1)%words.length; setTimeout(typeEffect, 400); }
+    else setTimeout(typeEffect, del ? 70 : 120);
+  }
+  typeEffect();
 
-  reviewForm.addEventListener('submit', (e) => {
+  // toast
+  const toastDiv = document.getElementById('toastNotification');
+  function showToast() { toastDiv.classList.add('show'); setTimeout(() => toastDiv.classList.remove('show'), 2000); }
+  document.querySelectorAll('.project-btn').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); showToast(); }));
+
+  // project filters
+  const filters = document.querySelectorAll('.filter-btn');
+  const projectItems = document.querySelectorAll('.project-item');
+  filters.forEach(f => f.addEventListener('click', () => {
+    filters.forEach(btn => btn.classList.remove('active'));
+    f.classList.add('active');
+    let filterVal = f.dataset.filter;
+    projectItems.forEach(item => {
+      if (filterVal === 'all' || item.dataset.category === filterVal) {
+        item.style.display = 'block'; setTimeout(() => item.style.opacity = '1', 20);
+      } else { item.style.opacity = '0'; setTimeout(() => item.style.display = 'none', 200); }
+    });
+  }));
+
+  // reviews
+  const revForm = document.getElementById('reviewForm');
+  const revContainer = document.getElementById('userReviews');
+  revForm?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = document.getElementById('reviewerName').value;
-    const message = document.getElementById('reviewMessage').value;
-    const rating = document.querySelector('input[name="rating"]:checked').value;
-
-    const reviewCard = document.createElement('div');
-    reviewCard.classList.add('bg-dark', 'text-white', 'p-3', 'mb-3', 'rounded', 'shadow-sm');
-    reviewCard.innerHTML = `<h6 class="text-accent mb-1">${name}</h6><div class="mb-2">${'🫶🏻'.repeat(rating)}</div><p>${message}</p>`;
-
-    userReviews.prepend(reviewCard);
-    reviewForm.reset();
+    let name = document.getElementById('reviewerName').value.trim();
+    let msg = document.getElementById('reviewMessage').value.trim();
+    let rating = document.querySelector('input[name="rating"]:checked');
+    if (!name || !msg) return alert('Please fill name and review');
+    if (!rating) return alert('Select a rating');
+    let stars = '★'.repeat(parseInt(rating.value)) + '☆'.repeat(5-parseInt(rating.value));
+    let card = document.createElement('div');
+    card.className = 'card p-3 mb-3';
+    card.innerHTML = `<h6 class="text-accent">${escapeHtml(name)}</h6><div class="mb-1" style="color:#e10600">${stars}</div><p>${escapeHtml(msg)}</p><small>${new Date().toLocaleDateString()}</small>`;
+    revContainer.prepend(card);
+    revForm.reset();
+    let success = document.createElement('div'); success.className = 'alert alert-success mt-2'; success.innerText = 'Thanks for your review!';
+    revForm.appendChild(success); setTimeout(() => success.remove(), 2500);
   });
+
+  // contact form
+  document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let btn = e.target.querySelector('button');
+    let orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+      let done = document.createElement('div'); done.className = 'alert alert-success mt-4'; done.innerHTML = '<i class="fas fa-check-circle"></i> Message sent! I\'ll reply within 24 hours.';
+      e.target.appendChild(done);
+      e.target.reset();
+      btn.innerHTML = orig;
+      btn.disabled = false;
+      setTimeout(() => done.remove(), 4000);
+    }, 1200);
+  });
+
+  // count animation
+  const counters = [
+    { el: document.getElementById('projectsCount'), target: 50, suffix: '' },
+    { el: document.getElementById('clientsCount'), target: 40, suffix: '' },
+    { el: document.getElementById('deliveryCount'), target: 100, suffix: '%' },
+    { el: document.getElementById('ratingCount'), target: 5, suffix: '.0' }
+  ];
+  function animateCounters() {
+    counters.forEach(c => { if(c.el) { c.el.innerText = '0' + c.suffix; let curr = 0; let step = c.target / 45; let upd = setInterval(() => { curr += step; if(curr >= c.target) { c.el.innerText = c.target + c.suffix; clearInterval(upd); } else c.el.innerText = Math.floor(curr) + c.suffix; }, 18); } });
+  }
+  let animating = false;
+  const trustObs = new IntersectionObserver((entries) => {
+    if(entries[0].isIntersecting && !animating) { animating = true; animateCounters(); setTimeout(() => animating = false, 1500); }
+  }, { threshold: 0.4 });
+  const trustSec = document.getElementById('trustSection');
+  if(trustSec) trustObs.observe(trustSec);
+
+  // theme toggle
+  const toggle = document.getElementById('themeToggle');
+  const themeSpan = document.getElementById('themeText');
+  const icon = toggle.querySelector('i');
+  if(localStorage.getItem('theme') === 'light') { document.body.classList.add('light-mode'); icon.className = 'fas fa-sun'; themeSpan.innerText = 'Light'; }
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    let isLight = document.body.classList.contains('light-mode');
+    icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+    themeSpan.innerText = isLight ? 'Light' : 'Dark';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+
+  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
 </script>
 </body>
 </html>
