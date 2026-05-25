@@ -2,14 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5.0,user-scalable=yes">
   <title>Kingsley Kenechukwu | Front-End Developer Portfolio</title>
+  <meta name="description" content="Kingsley Kenechukwu - Professional Web Developer specializing in responsive websites, UI/UX design, and modern web technologies.">
+
+  <meta name="keywords" content="web developer, front-end developer, UI/UX designer, Nigeria, React developer">
+  <meta name="author" content="Kingsley Kenechukwu">
+
+  <meta property="og:title" content="Kingsley Kenechukwu | Web Developer">
+
+  <meta property="og:description" content="Building responsive, high-performance websites.">
+  <meta property="og:image" content="images/kings2.png">
 
   <!-- Bootstrap 5 + Icons + AOS + Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
 
   <style>
     /* ---------- LIGHT / DARK MODE (DARK DEFAULT) ---------- */
@@ -50,9 +60,11 @@
       background: var(--bg-primary);
       color: var(--text-primary);
       scroll-behavior: smooth;
+      scroll-padding-top: 88px;
       overflow-x: hidden;
       transition: background 0.3s ease, color 0.3s ease;
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      box-sizing: border-box;
     }
     /* ---------- NAVBAR & SCROLL SPY ---------- */
     .navbar {
@@ -81,6 +93,32 @@
       background: #e10600;
       border-radius: 2px;
     }
+  #preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #222;
+  border-top: 5px solid #e10600;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 
+  100% { transform: rotate(360deg); } 
+}
     @media (min-width: 992px) {
       .navbar-nav .nav-link.active::after {
         left: 1rem;
@@ -141,8 +179,26 @@
     }
     .btn-small { padding: 6px 20px; font-size: 0.85rem; }
 
+    section, .hero-section { scroll-margin-top: 88px; }
     section { padding: 70px 0; }
-    @media (max-width: 768px) { section { padding: 50px 0; } }
+    @media (max-width: 768px) {
+      body { scroll-padding-top: 76px; }
+      section, .hero-section { scroll-margin-top: 76px; }
+      section { padding: 50px 0; }
+      .navbar { padding: 0.75rem 0; }
+      .navbar-nav .nav-link {
+        padding: 0.75rem 0.25rem;
+      }
+      .navbar-nav .nav-link.active::after {
+        left: 0.25rem;
+        right: auto;
+        width: 42px;
+      }
+      .theme-toggle {
+        margin: 10px 0 4px;
+        width: 100%;
+      }
+    }
 
     /* HERO image */
     .hero-img {
@@ -384,30 +440,9 @@
       text-decoration: none;
     }
     .whatsapp-float:hover { transform: scale(1.08); background: #128C7E; color: white; }
-
-    /* modal & preloader */
-    .modal-content { background: var(--bg-card); border-radius: 20px; border: 1px solid #e10600; }
-    .close-btn { background: none; border: none; font-size: 28px; color: var(--text-primary); }
-    #preloader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid #222;
-      border-top: 5px solid #e10600;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    .typed-text { font-size: 1.3rem; font-weight: 500; color: #e10600; }
+/* modal */
+.modal-content { background: var(--bg-card); border-radius: 20px; border: 1px solid #e10600; }
+.close-btn { background: none; border: none; font-size: 28px; color: var(--text-primary); }
 
     /* contact form readability */
     .contact-form input, .contact-form textarea {
@@ -428,12 +463,313 @@
       margin-bottom: 6px;
       color: var(--text-primary);
     }
+ /* Skeleton Loading */
+#skeletonLoader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+  z-index: 9998;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.skeleton-box {
+  background: linear-gradient(90deg, 
+    var(--border-color) 25%, 
+    var(--bg-secondary) 50%, 
+    var(--border-color) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Hero skeleton */
+.skeleton-hero-title {
+  height: 48px;
+  width: 80%;
+  margin-bottom: 16px;
+}
+
+.skeleton-hero-subtitle {
+  height: 24px;
+  width: 60%;
+  margin-bottom: 24px;
+}
+
+.skeleton-hero-text {
+  height: 80px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.skeleton-btn {
+  height: 48px;
+  width: 140px;
+  border-radius: 40px;
+  display: inline-block;
+  margin-right: 12px;
+}
+
+.skeleton-avatar {
+  height: 260px;
+  width: 260px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.skeleton-card {
+  height: 120px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Add to your CSS */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  z-index: 9999;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #e10600, #ff4444);
+  width: 0%;
+  transition: width 0.1s ease;
+}
+/* Add to your CSS section */
+.tech-icon-card {
+  padding: 25px 15px;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+.tech-icon-card:hover {
+  transform: translateY(-8px);
+  border-color: #e10600;
+}
+.tech-icon-card i {
+  transition: transform 0.3s ease;
+  display: block;
+}
+.tech-icon-card:hover i {
+  transform: scale(1.2);
+}
+.tech-icon-card h6 {
+  margin-top: 10px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Process section styles */
+.process-number {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: rgba(225, 6, 0, 0.1);
+  z-index: 0;
+}
+.status-dot {
+  width: 12px;
+  height: 12px;
+  background: #22c55e;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.hero-img {
+  animation: float 3s ease-in-out infinite;
+}
+.js-logo {
+  width: 48px;
+  height: 48px;
+  background: #f7df1e;
+  color: #000;
+  font-weight: 900;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: -1px;
+}
+/* Add this media query */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto !important;
+    padding: 40px 0;
+  }
+}
+@media (max-width: 576px) {
+  .footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .social-links {
+    justify-content: center;
+  }
+}
+@media (max-width: 576px) {
+  #scrollTopBtn {
+    bottom: 80px;
+    right: 15px;
+  }
+  .whatsapp-float {
+    bottom: 80px;
+    left: 15px;
+  }
+}
+@media (max-width: 576px) {
+  .skill-name {
+    font-size: 0.85rem;
+  }
+  .skill-item {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-form input, 
+  .contact-form textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* Fix Tawk.to widget overlapping */
+@media (max-width: 576px) {
+  #scrollTopBtn {
+    bottom: 85px !important;
+    right: 15px !important;
+  }
+  .whatsapp-float {
+    bottom: 85px !important;
+    left: 15px !important;
+  }
+}
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto !important;
+    padding: 40px 0;
+  }
+  .hero-section .container {
+    padding: 0 15px;
+  }
+}
+/* Tawk.to mobile visibility */
+iframe[title*="chat" i],
+iframe[title*="Tawk" i],
+iframe[src*="tawk.to"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 2147483647 !important;
+}
+
+@media (max-width: 576px) {
+  iframe[title*="chat" i],
+  iframe[title*="Tawk" i],
+  iframe[src*="tawk.to"] {
+    position: fixed !important;
+    right: calc(12px + env(safe-area-inset-right)) !important;
+    bottom: calc(12px + env(safe-area-inset-bottom)) !important;
+    z-index: 2147483647 !important;
+    transform: none !important;
+    max-width: calc(100vw - 24px) !important;
+    max-height: calc(100dvh - 24px) !important;
+  }
+
+  div[id*="tawk" i],
+  div[class*="tawk" i] {
+    z-index: 2147483647 !important;
+  }
+
+  #scrollTopBtn {
+    bottom: 85px !important;
+    right: 15px !important;
+  }
+  
+  .whatsapp-float {
+    bottom: 85px !important;
+    left: 15px !important;
+  }
+}
   </style>
 </head>
-<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+<body>
+  <!-- Add right after <body> tag -->
+<div class="scroll-progress">
+  <div class="progress-bar" id="scrollProgress"></div>
+</div>
+
+
 
 <div id="preloader"><div class="spinner"></div></div>
 <div id="toastNotification" class="toast-notification"><i class="fas fa-code"></i> Project coming soon!</div>
+
+<!-- Skeleton Loader -->
+<div id="skeletonLoader" style="display: none;">
+  <div class="container" style="padding-top: 100px;">
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-7">
+        <div class="skeleton-box skeleton-hero-title"></div>
+        <div class="skeleton-box skeleton-hero-subtitle"></div>
+        <div class="skeleton-box skeleton-hero-text"></div>
+        <div style="display: flex; gap: 12px;">
+          <div class="skeleton-box skeleton-btn"></div>
+          <div class="skeleton-box skeleton-btn"></div>
+        </div>
+      </div>
+      <div class="col-lg-5 text-center mt-4 mt-lg-0">
+        <div class="skeleton-box skeleton-avatar"></div>
+      </div>
+    </div>
+    
+    <div class="row g-4 mb-5">
+      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
+      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
+      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
+      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
+      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
+      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-4"><div class="skeleton-box" style="height: 300px; border-radius: 16px;"></div></div>
+      <div class="col-md-4"><div class="skeleton-box" style="height: 300px; border-radius: 16px;"></div></div>
+      <div class="col-md-4"><div class="skeleton-box" style="height: 300px; border-radius: 16px;"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- end of skeleton loader -->
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
@@ -445,7 +781,9 @@
     <div class="collapse navbar-collapse" id="portfolioNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+         <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#process">Work-Plan</a></li>
         <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
@@ -456,25 +794,100 @@
   </div>
 </nav>
 
+
 <!-- HERO -->
-<div class="container hero-section" id="home" style="min-height: 90vh; display: flex; align-items: center;">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-7 text-center text-lg-start" data-aos="fade-right">
-        <h1 class="display-4 fw-bold">Hi, I'm <span class="text-accent">Kingsley Kenechukwu</span></h1>
-        <div class="typed-text my-3"><span id="typed-words"></span></div>
-        <p class="lead">I create <span class="text-accent">responsive, interactive websites</span> combining great design and seamless functionality.</p>
-        <div class="d-flex gap-3 flex-wrap mt-4">
-          <a href="#contact" class="btn-primary-custom">Hire Me <i class="fas fa-arrow-right"></i></a>
-          <a href="#projects" class="btn-outline-custom">View Work <i class="fas fa-code"></i></a>
-        </div>
+<div class="container hero-section p-3" id="home" style="min-height: 90vh; display: flex; align-items: center;">
+  <div class="row align-items-center w-100">
+    <div class="col-lg-7 text-center text-lg-start" data-aos="fade-right">
+      <h1 class="display-4 fw-bold">Hi, I'm <span class="text-accent">Kingsley Kenechukwu</span></h1>
+      <div class="typed-text my-3"><span id="typed-words"></span></div>
+      <p class="lead">I create <span class="text-accent">responsive, interactive websites</span> combining great design and seamless functionality.</p>
+      <div class="d-flex gap-3 flex-wrap mt-4">
+        <a href="#contact" class="btn-primary-custom">Hire Me <i class="fas fa-arrow-right"></i></a>
+        <a href="#projects" class="btn-outline-custom">View Work <i class="fas fa-code"></i></a>
       </div>
-      <div class="col-lg-5 text-center mt-4 mt-lg-0" data-aos="fade-left">
-        <img src="images/kings2.png" class="hero-img" alt="Kingsley">
-      </div>
+     <div class="d-flex align-items-center mt-3" data-aos="fade-up" data-aos-delay="300">
+  <div class="status-dot"></div>
+  <span class="ms-2" style="color: var(--text-secondary);">Available for new projects</span>
+</div>
+    </div>
+    <div class="col-lg-5 text-center mt-4 mt-lg-0" data-aos="fade-left">
+      <img src="images/kings2.png" class="hero-img" alt="Kingsley">
     </div>
   </div>
 </div>
+
+
+<section id="skills" class="bg-dark">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="fw-bold">TECH <span class="text-accent">STACK</span></h2>
+      <hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;">
+    </div>
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="100">
+        <div class="tech-icon-card">
+          <i class="fab fa-html5 fa-3x mb-3" style="color: #e34f26;"></i>
+          <h6>HTML5</h6>
+        </div>
+      </div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="200">
+        <div class="tech-icon-card">
+          <i class="fab fa-css3-alt fa-3x mb-3" style="color: #264de4;"></i>
+          <h6>CSS3</h6>
+        </div>
+      </div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="300">
+<div class="tech-icon-card">
+  <svg width="48" height="48" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" class="mb-3">
+    <g transform="translate(5,5) scale(0.96)">
+      <path fill="#F7DF1E" d="M0,0 L256,0 L256,256 L0,256 Z"/>
+      <path fill="#000000" d="M67.312,213.932 L86.902,202.076 C90.682,208.776 94.116,214.432 102.63,214.432 C110.61,214.432 115.658,211.308 115.658,199.212 L115.658,102.632 L142.106,102.632 L142.106,199.616 C142.106,228.84 124.166,241.932 97.678,241.932 C73.524,241.932 60.666,229.444 53.646,213.932 L67.312,213.932 Z"/>
+      <path fill="#000000" d="M153.816,211.756 L172.698,200.8 C177.67,208.724 184.15,214.616 195.606,214.616 C205.066,214.616 211.11,209.884 211.11,203.334 C211.11,195.504 204.89,192.75 194.416,188.2 L188.616,185.714 C172.068,178.654 161.116,169.792 161.116,152.966 C161.116,137.456 173.108,125.668 191.85,125.668 C205.188,125.668 214.776,130.332 221.682,142.428 L208.24,150.992 C205.28,145.688 202.108,143.596 197.196,143.596 C192.084,143.596 188.838,146.84 188.838,151.456 C188.838,156.96 192.084,159.192 201.966,163.432 L207.766,165.92 C227.32,174.3 238.272,182.764 238.272,200.2 C238.272,218.664 222.298,228.784 200.778,228.784 C179.966,228.784 166.596,218.86 158.88,211.756 L153.816,211.756 Z"/>
+    </g>
+  </svg>
+  <h6>JavaScript</h6>
+</div>
+
+      </div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="400">
+        <div class="tech-icon-card">
+          <i class="fab fa-react fa-3x mb-3" style="color: #61dafb;"></i>
+          <h6>React</h6>
+        </div>
+      </div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="500">
+        <div class="tech-icon-card">
+          <i class="fab fa-node-js fa-3x mb-3" style="color: #68a063;"></i>
+          <h6>Node.js</h6>
+        </div>
+      </div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="600">
+        <div class="tech-icon-card">
+          <i class="fab fa-bootstrap fa-3x mb-3" style="color: #7952b3;"></i>
+          <h6>Bootstrap</h6>
+        </div>
+      </div>
+
+            <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="500">
+<div class="tech-icon-card">
+  <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="mb-3">
+    <rect width="48" height="48" rx="8" fill="#F7DF1E"/>
+    <text x="24" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#000000">JS</text>
+  </svg>
+  <h6>JavaScript</h6>
+</div>
+      </div>
+
+            <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="500">
+        <div class="tech-icon-card">
+          <i class="fab fa-php fa-3x mb-3" style="color: #68a063;"></i>
+          <h6>PHP</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- TRUST SECTION -->
 <section id="trustSection">
@@ -493,6 +906,8 @@
   </div>
 </section>
 
+
+
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
@@ -501,7 +916,8 @@
       <div class="col-lg-4 text-center mb-4" data-aos="fade-right"><img src="images/kings1.png" class="about-img" alt="Kingsley"></div>
       <div class="col-lg-8" data-aos="fade-left">
         <h4 class="fw-bold text-accent">Who Am I?</h4>
-        <p>Front-End Developer with 3+ years of experience building responsive, high-performance websites. I blend modern design with clean code.</p>
+        <p>Web Developer with 3+ years of experience building responsive, high-performance websites. I blend modern design with clean code.</p>
+
         <div class="row mt-3">
           <div class="col-md-6"><div class="skill-item"><span class="skill-name">HTML/CSS</span><div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div></div>
           <div class="skill-item"><span class="skill-name">JavaScript</span><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
@@ -514,6 +930,49 @@
           <button class="btn-primary-custom btn-small" data-bs-toggle="modal" data-bs-target="#portfolioModal"><i class="fas fa-eye"></i> View Portfolio</button>
           <a href="UGWU_KINGSLEY_KENECHUKWU_POLISHED_CV.pdf" class="btn-outline-custom btn-small" download><i class="fas fa-download"></i> Download CV</a>
           <a href="#contact" class="btn-outline-custom btn-small"><i class="fas fa-envelope"></i> Contact Me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="fw-bold">HOW I <span class="text-accent">WORK</span></h2>
+      <hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;">
+    </div>
+    <div class="row g-4">
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-card position-relative">
+          <div class="process-number">01</div>
+          <i class="fas fa-comments service-icon"></i>
+          <h5>Discovery</h5>
+          <p>Understanding your goals and requirements</p>
+        </div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card position-relative">
+          <div class="process-number">02</div>
+          <i class="fas fa-pencil-ruler service-icon"></i>
+          <h5>Design</h5>
+          <p>Creating wireframes and visual designs</p>
+        </div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-card position-relative">
+          <div class="process-number">03</div>
+          <i class="fas fa-code service-icon"></i>
+          <h5>Development</h5>
+          <p>Building with clean, efficient code</p>
+        </div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="service-card position-relative">
+          <div class="process-number">04</div>
+          <i class="fas fa-rocket service-icon"></i>
+          <h5>Launch</h5>
+          <p>Testing, deployment, and support</p>
         </div>
       </div>
     </div>
@@ -631,7 +1090,7 @@
 <footer class="footer">
   <div>
     <h5>KingsDev</h5>
-    <p>Front-End Developer crafting high-quality, responsive web experiences.</p>
+    <p>Web Developer crafting high-quality, responsive web experiences.</p>
   </div>
   <div>
     <h5>Quick Links</h5>
@@ -668,6 +1127,41 @@
 <!-- Tawk.to (original working script) -->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+function keepTawkWidgetVisible() {
+  var widgets = document.querySelectorAll('iframe[title*="chat" i], iframe[title*="Tawk" i], iframe[src*="tawk.to"]');
+  widgets.forEach(function(widget) {
+    widget.style.setProperty('position', 'fixed', 'important');
+    widget.style.setProperty('right', '12px', 'important');
+    widget.style.setProperty('bottom', '12px', 'important');
+    widget.style.setProperty('z-index', '2147483647', 'important');
+    widget.style.setProperty('opacity', '1', 'important');
+    widget.style.setProperty('visibility', 'visible', 'important');
+    widget.style.setProperty('pointer-events', 'auto', 'important');
+  });
+  if (typeof Tawk_API.showWidget === 'function') {
+    Tawk_API.showWidget();
+  }
+}
+Tawk_API.customStyle = {
+  visibility: {
+    desktop: {
+      position: 'br',
+      xOffset: 20,
+      yOffset: 20
+    },
+    mobile: {
+      position: 'br',
+      xOffset: 12,
+      yOffset: 12
+    }
+  }
+};
+Tawk_API.onLoad = function() {
+  keepTawkWidgetVisible();
+  setTimeout(keepTawkWidgetVisible, 500);
+  setTimeout(keepTawkWidgetVisible, 1500);
+};
+setInterval(keepTawkWidgetVisible, 3000);
 (function(){
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
 s1.async=true;
@@ -681,8 +1175,7 @@ s0.parentNode.insertBefore(s1,s0);
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({ duration: 700, once: false, mirror: true, offset: 80 });
-  const spy = new bootstrap.ScrollSpy(document.body, { target: '.navbar', offset: 70 });
+  AOS.init({ duration: 700, once: false, mirror: false, offset: 70 });
 
   window.addEventListener('load', () => { 
     setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 600); 
@@ -690,7 +1183,9 @@ s0.parentNode.insertBefore(s1,s0);
   });
 
   const scrollBtn = document.getElementById("scrollTopBtn");
-  window.onscroll = () => { scrollBtn.style.display = window.scrollY > 250 ? "flex" : "none"; };
+  window.addEventListener('scroll', () => {
+    scrollBtn.style.display = window.scrollY > 250 ? "flex" : "none";
+  }, { passive: true });
   scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   // typed effect
@@ -794,6 +1289,133 @@ s0.parentNode.insertBefore(s1,s0);
   });
 
   function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
+</script>
+<script>
+
+// Performance: Lazy loading for images
+document.querySelectorAll('img').forEach(img => {
+  img.decoding = 'async';
+  if (img.closest('.hero-section')) {
+    img.loading = 'eager';
+    img.fetchPriority = 'high';
+  } else {
+    img.loading = 'lazy';
+  }
+});
+
+// Add page transition loader
+window.addEventListener('beforeunload', () => {
+  document.getElementById('preloader').style.display = 'flex';
+});
+
+// Add typing speed customization
+// (your typed effect is solid, just consider making it configurable)
+
+// Form validation enhancement
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Navbar-aware smooth scrolling and active state
+const navLinks = document.querySelectorAll('.navbar-nav .nav-link[href^="#"]');
+const navSections = Array.from(navLinks)
+  .map(link => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+function getNavOffset() {
+  const nav = document.querySelector('.navbar');
+  return nav ? nav.offsetHeight + 14 : 88;
+}
+
+function setActiveNav() {
+  const offset = getNavOffset() + 8;
+  let currentId = navSections[0]?.id || '';
+
+  navSections.forEach(section => {
+    if (section.getBoundingClientRect().top <= offset) {
+      currentId = section.id;
+    }
+  });
+
+  if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 4) {
+    currentId = navSections[navSections.length - 1]?.id || currentId;
+  }
+
+  navLinks.forEach(link => {
+    const isActive = link.getAttribute('href') === `#${currentId}`;
+    link.classList.toggle('active', isActive);
+    if (isActive) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  });
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (!href || href === '#') return;
+
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    e.preventDefault();
+    const top = target.getBoundingClientRect().top + window.scrollY - getNavOffset();
+    window.scrollTo({ top, behavior: 'smooth' });
+    history.pushState(null, '', href);
+
+    const openMenu = document.querySelector('.navbar-collapse.show');
+    if (openMenu && window.bootstrap) {
+      bootstrap.Collapse.getOrCreateInstance(openMenu).hide();
+    }
+
+    setTimeout(setActiveNav, 250);
+  });
+});
+
+window.addEventListener('scroll', setActiveNav, { passive: true });
+window.addEventListener('resize', setActiveNav);
+window.addEventListener('load', setActiveNav);
+setActiveNav();
+
+// Smoother transition with system preference detection
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+if (!localStorage.getItem('theme')) {
+  if (prefersDark.matches) {
+    document.body.classList.remove('light-mode');
+  } else {
+    document.body.classList.add('light-mode');
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Kingsley Kenechukwu",
+  "jobTitle": "Web Developer",
+  "url": "https://yourdomain.com",
+  "sameAs": [
+    "https://www.linkedin.com/in/ugwu-kingsley-379203282",
+    "https://www.facebook.com/share/18MmvwXQrC/"
+  ]
+}
+
+
+</script>
+<script>
+// Scroll Progress Indicator
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  const progressBar = document.getElementById('scrollProgress');
+  if (progressBar) {
+    progressBar.style.width = scrolled + '%';
+  }
+});
+
 </script>
 </body>
 </html>
