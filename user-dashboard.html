@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KingsDev Admin Dashboard</title>
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card: #1a1a1a;
+      --accent: #e10600;
+      --text: #ffffff;
+      --border: #2a2a2a;
+      --input-bg: #111;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+    
+    /* Login Screen */
+    #loginScreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .login-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+    .login-card h2 { color: var(--accent); margin-bottom: 8px; }
+    .login-card input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 16px;
+    }
+    .login-card input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+      font-size: 16px;
+    }
+    .btn-accent:hover { background: #b10500; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 10px 24px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-outline:hover { background: var(--accent); color: white; }
+    .btn-danger-sm {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    
+    /* Dashboard */
+    #dashboard {
+      display: none;
+      min-height: 100vh;
+    }
+    .sidebar {
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 250px;
+      padding: 20px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+    .sidebar h4 { color: var(--accent); margin-bottom: 30px; }
+    .sidebar .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-bottom: 4px;
+      color: #aaa;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+    .sidebar .nav-item:hover, .sidebar .nav-item.active {
+      background: var(--accent);
+      color: white;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 30px;
+    }
+    .card-dark {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .card-dark h5 { color: var(--accent); margin-bottom: 16px; }
+    .card-dark input, .card-dark textarea, .card-dark select {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .card-dark input:focus, .card-dark textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin: 3px;
+    }
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: var(--input-bg);
+      border-radius: 10px;
+      margin: 8px 0;
+    }
+    .toast-notify {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #22c55e;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.3s;
+      pointer-events: none;
+    }
+    .toast-notify.show { opacity: 1; transform: translateY(0); }
+    
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 12px;
+      }
+      .sidebar h4 { display: none; }
+      .sidebar .nav-item {
+        width: auto;
+        font-size: 0.8rem;
+        padding: 8px 12px;
+      }
+      .main-content { margin-left: 0; padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="loginScreen">
+  <div class="login-card">
+    <i class="fas fa-lock fa-3x mb-3" style="color: #e10600;"></i>
+    <h2>Admin Dashboard</h2>
+    <p class="text-secondary mb-4">Enter credentials to continue</p>
+    <input type="text" id="username" placeholder="Username" autocomplete="off">
+    <input type="password" id="password" placeholder="Password">
+    <button class="btn-accent mt-3" onclick="login()">
+      <i class="fas fa-sign-in-alt me-2"></i> Sign In
+    </button>
+    <p id="loginError" class="text-danger mt-3" style="display:none;">Invalid credentials</p>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h4><i class="fas fa-crown me-2"></i>KingsDev Admin</h4>
+    <button class="nav-item active" onclick="showSection('hero')"><i class="fas fa-home"></i> Hero Section</button>
+    <button class="nav-item" onclick="showSection('about')"><i class="fas fa-user"></i> About</button>
+    <button class="nav-item" onclick="showSection('skills')"><i class="fas fa-code"></i> Skills</button>
+    <button class="nav-item" onclick="showSection('projects')"><i class="fas fa-folder"></i> Projects</button>
+    <button class="nav-item" onclick="showSection('services')"><i class="fas fa-cogs"></i> Services</button>
+    <button class="nav-item" onclick="showSection('reviews')"><i class="fas fa-star"></i> Reviews</button>
+    <button class="nav-item" onclick="showSection('experience')"><i class="fas fa-briefcase"></i> Experience</button>
+    <button class="nav-item" onclick="logout()" style="color:#ff6b6b;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    
+    <!-- Hero Section -->
+    <div id="section-hero" class="section-panel">
+      <h3 class="mb-4"><i class="fas fa-home me-2" style="color:#e10600;"></i>Hero Section</h3>
+      <div class="card-dark">
+        <h5>Hero Content</h5>
+        <label>Title Line 1</label>
+        <input type="text" id="heroTitle1" placeholder="Hi, I'm">
+        <label>Title Line 2 (Name)</label>
+        <input type="text" id="heroTitle2" placeholder="Kingsley Kenechukwu">
+        <label>Subtitle / Tagline</label>
+        <input type="text" id="heroSubtitle" placeholder="I create responsive, interactive websites...">
+        <label>Typed Words (comma separated)</label>
+        <input type="text" id="heroTypedWords" placeholder="Web Developer, UI/UX Designer, IT Support Specialist">
+        <label>Availability Status</label>
+        <input type="text" id="heroStatus" placeholder="Available for new projects">
+        <button class="btn-accent mt-3" onclick="saveHero()"><i class="fas fa-save me-2"></i>Save Hero</button>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="section-about" class="section-panel" style="display:none;">
+      <h3 class="mb-4"><i class="fas fa-user me-2" style="color:#e10600;"></i>About Section</h3>
+      <div class="card-dark">
+        <h5>About Content</h5>
+        <label>Who Am I? Title</label>
+        <input type="text" id="aboutTitle" placeholder="Who Am I?">
+        <label>About Description</label>
+        <textarea id="aboutDesc" rows="4" placeholder="Web Developer with 3½+ years of experience..."></textarea>
+        <label>Skills (JSON format: name, percentage)</label>
+        <textarea id="aboutSkills" rows="6" placeholder='[{"name":"HTML/CSS","percent":95},{"name":"JavaScript","percent":88}]'></textarea>
+        <label>Resume Filename</label>
+        <input type="text" id="aboutResume" placeholder="UGWU_KINGSLEY_KENECHUKWU_Resume.docx">
+        <button class="btn-accent mt-3" onclick="saveAbout()"><i class="fas fa-save me-2"></i>Save About</button>
+      </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div id="section-skills" class="section-panel" style="display:none;">
+      <h3 class="mb-4"><i class="fas fa-code me-2" style="color:#e10600;"></i>Skills Management</h3>
+      <div class="card-dark">
+        <h5>Add New Skill Category</h5>
+        <label>Category Name</label>
+        <input type="text" id="skillCatName" placeholder="e.g., Web Development">
+        <label>Skills (comma separated: icon-class|name)</label>
+        <textarea id="skillCatItems" rows="3" placeholder="fab fa-html5|HTML5, fab fa-css3-alt|CSS3"></textarea>
+        <button class="btn-accent mt-2" onclick="addSkillCategory()"><i class="fas fa-plus me-2"></i>Add Category</button>
+      </div>
+      <div class="card-dark">
+        <h5>Existing Categories</h5>
+        <div id="skillCategoriesList"></div>
+      </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div id="section-projects" class="section-panel" style="display:none;">
+      <h3 class="mb-4"><i class="fas fa-folder me-2" style="color:#e10600;"></i>Projects Management</h3>
+      <div class="card-dark">
+        <h5>Add New Project</h5>
+        <label>Project Title</label>
+        <input type="text" id="projTitle" placeholder="Project name">
+        <label>Description</label>
+        <textarea id="projDesc" rows="2" placeholder="Brief description"></textarea>
+        <label>Category</label>
+        <select id="projCategory">
+          <option value="web">Web Apps</option>
+          <option value="ecommerce">E-commerce</option>
+          <option value="landing">Landing</option>
+        </select>
+        <label>Technologies (comma separated)</label>
+        <input type="text" id="projTech" placeholder="HTML/CSS, JS, Bootstrap">
+        <label>Upload Images (select multiple)</label>
+        <input type="file" id="projImages" multiple accept="image/*">
+        <button class="btn-accent mt-3" onclick="addProject()"><i class="fas fa-plus me-2"></i>Add Project</button>
+      </div>
+      <div class="card-dark">
+        <h5>Existing Projects</h5>
+        <div id="projectsList"></div>
+      </div>
+    </div>
+
+    <!-- Services Section -->
+    <div id="section-services" class="section-panel" style="display:none;">
+      <h3 class="mb-4"><i class="fas fa-cogs me-2" style="color:#e10600;"></i>Services Management</h3>
+      <div class="card-dark">
+        <h5>Add New Service</h5>
+        <label>Icon Class</label>
+        <input type="text" id="servIcon" placeholder="fas fa-code">
+        <label>Service Title</label>
+        <input type="text" id="servTitle" placeholder="Web Development">
+        <label>Description</label>
+        <textarea id="servDesc" rows="2" placeholder="Service description"></textarea>
+        <button class="btn-accent mt-2" onclick="addService()"><i class="fas fa-plus me-2"></i>Add Service</button>
+      </div>
+      <div class="card-dark">
+        <h5>Existing Services</h5>
+        <div id="servicesList"></div>
+      </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div id="section-reviews" class="section-panel" style="display:none;">
+      <h3 class="mb-4"><i class="fas fa-star me-2" style="color:#e10600;"></i>Reviews Management</h3>
+      <div class="card-dark">
+        <h5>All Reviews</h5>
+        <div id="reviewsList"></div>
+      </div>
+    </div>
+
+    <!-- Experience Section -->
+    <div id="section-experience" class="section-panel" style="display:none;">
+      <h3 class="mb-4"><i class="fas fa-briefcase me-2" style="color:#e10600;"></i>Experience Management</h3>
+      <div class="card-dark">
+        <h5>Add Work Experience</h5>
+        <label>Job Title</label>
+        <input type="text" id="expTitle" placeholder="Web Developer / IT Specialist">
+        <label>Company</label>
+        <input type="text" id="expCompany" placeholder="Company Name">
+        <label>Period</label>
+        <input type="text" id="expPeriod" placeholder="2025 – Present">
+        <label>Description Points (one per line)</label>
+        <textarea id="expPoints" rows="4" placeholder="Developed responsive websites...&#10;Increased workflow efficiency..."></textarea>
+        <button class="btn-accent mt-2" onclick="addExperience()"><i class="fas fa-plus me-2"></i>Add Experience</button>
+      </div>
+      <div class="card-dark">
+        <h5>Existing Experience</h5>
+        <div id="experienceList"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toastNotify" class="toast-notify">Saved successfully!</div>
+
+<script src="firebase-config.js"></script>
+<script>
+// ============================================
+// ADMIN DASHBOARD LOGIC
+// ============================================
+
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "Kingsley2024!";
+
+// Login
+function login() {
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadAllData();
+    showToast('Welcome back, Kingsley! 👑');
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+function logout() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('username').value = '';
+  document.getElementById('password').value = '';
+}
+
+// Navigation
+function showSection(section) {
+  document.querySelectorAll('.section-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('section-' + section).style.display = 'block';
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// Toast
+function showToast(msg) {
+  const toast = document.getElementById('toastNotify');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ============================================
+// CRUD OPERATIONS
+// ============================================
+
+// ---- HERO ----
+function saveHero() {
+  const data = {
+    title1: document.getElementById('heroTitle1').value,
+    title2: document.getElementById('heroTitle2').value,
+    subtitle: document.getElementById('heroSubtitle').value,
+    typedWords: document.getElementById('heroTypedWords').value,
+    status: document.getElementById('heroStatus').value
+  };
+  db.collection('content').doc('hero').set(data).then(() => showToast('Hero saved! ✅'));
+}
+
+function loadHero() {
+  db.collection('content').doc('hero').get().then(doc => {
+    if (doc.exists) {
+      const d = doc.data();
+      document.getElementById('heroTitle1').value = d.title1 || '';
+      document.getElementById('heroTitle2').value = d.title2 || '';
+      document.getElementById('heroSubtitle').value = d.subtitle || '';
+      document.getElementById('heroTypedWords').value = d.typedWords || '';
+      document.getElementById('heroStatus').value = d.status || '';
+    }
+  });
+}
+
+// ---- ABOUT ----
+function saveAbout() {
+  let skills;
+  try { skills = JSON.parse(document.getElementById('aboutSkills').value); } catch(e) { skills = []; }
+  const data = {
+    title: document.getElementById('aboutTitle').value,
+    description: document.getElementById('aboutDesc').value,
+    skills: skills,
+    resumeFile: document.getElementById('aboutResume').value
+  };
+  db.collection('content').doc('about').set(data).then(() => showToast('About saved! ✅'));
+}
+
+function loadAbout() {
+  db.collection('content').doc('about').get().then(doc => {
+    if (doc.exists) {
+      const d = doc.data();
+      document.getElementById('aboutTitle').value = d.title || '';
+      document.getElementById('aboutDesc').value = d.description || '';
+      document.getElementById('aboutSkills').value = JSON.stringify(d.skills || [], null, 2);
+      document.getElementById('aboutResume').value = d.resumeFile || '';
+    }
+  });
+}
+
+// ---- SKILLS ----
+function addSkillCategory() {
+  const name = document.getElementById('skillCatName').value;
+  const itemsStr = document.getElementById('skillCatItems').value;
+  const items = itemsStr.split(',').map(s => {
+    const [icon, name] = s.trim().split('|');
+    return { icon: icon.trim(), name: name.trim() };
+  });
+  
+  db.collection('skills').add({ category: name, items: items, order: Date.now() })
+    .then(() => { showToast('Skill category added! ✅'); loadSkillCategories(); });
+}
+
+function deleteSkill(id) {
+  if (confirm('Delete this skill category?')) {
+    db.collection('skills').doc(id).delete().then(() => { showToast('Deleted!'); loadSkillCategories(); });
+  }
+}
+
+function loadSkillCategories() {
+  db.collection('skills').orderBy('order').get().then(snapshot => {
+    const list = document.getElementById('skillCategoriesList');
+    list.innerHTML = '';
+    snapshot.forEach(doc => {
+      const d = doc.data();
+      list.innerHTML += `
+        <div class="list-item">
+          <div><strong>${d.category}</strong> - ${d.items.length} skills</div>
+          <button class="btn-danger-sm" onclick="deleteSkill('${doc.id}')"><i class="fas fa-trash"></i></button>
+        </div>`;
+    });
+  });
+}
+
+// ---- PROJECTS ----
+function addProject() {
+  const title = document.getElementById('projTitle').value;
+  const desc = document.getElementById('projDesc').value;
+  const category = document.getElementById('projCategory').value;
+  const tech = document.getElementById('projTech').value.split(',').map(s => s.trim());
+  const files = document.getElementById('projImages').files;
+  
+  const projectRef = db.collection('projects').doc();
+  const projectData = { title, description: desc, category, technologies: tech, createdAt: Date.now() };
+  
+  projectRef.set(projectData).then(() => {
+    if (files.length > 0) {
+      const uploadPromises = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const storageRef = storage.ref(`projects/${projectRef.id}/${file.name}`);
+        uploadPromises.push(storageRef.put(file).then(snapshot => snapshot.ref.getDownloadURL()));
+      }
+      Promise.all(uploadPromises).then(urls => {
+        projectRef.update({ images: urls }).then(() => {
+          showToast('Project with images added! ✅');
+          loadProjects();
+        });
+      });
+    } else {
+      projectRef.update({ images: [] });
+      showToast('Project added! ✅');
+      loadProjects();
+    }
+  });
+}
+
+function deleteProject(id) {
+  if (confirm('Delete this project and all its images?')) {
+    db.collection('projects').doc(id).get().then(doc => {
+      const images = doc.data().images || [];
+      const deletePromises = images.map(url => storage.refFromURL(url).delete().catch(() => {}));
+      return Promise.all(deletePromises);
+    }).then(() => {
+      return db.collection('projects').doc(id).delete();
+    }).then(() => {
+      showToast('Project deleted!');
+      loadProjects();
+    });
+  }
+}
+
+function loadProjects() {
+  db.collection('projects').orderBy('createdAt', 'desc').get().then(snapshot => {
+    const list = document.getElementById('projectsList');
+    list.innerHTML = '';
+    snapshot.forEach(doc => {
+      const d = doc.data();
+      list.innerHTML += `
+        <div class="list-item">
+          <div>
+            <strong>${d.title}</strong> 
+            <span class="tag">${d.category}</span>
+            <br><small>${(d.images || []).length} images</small>
+          </div>
+          <button class="btn-danger-sm" onclick="deleteProject('${doc.id}')"><i class="fas fa-trash"></i></button>
+        </div>`;
+    });
+  });
+}
+
+// ---- SERVICES ----
+function addService() {
+  db.collection('services').add({
+    icon: document.getElementById('servIcon').value,
+    title: document.getElementById('servTitle').value,
+    description: document.getElementById('servDesc').value,
+    order: Date.now()
+  }).then(() => { showToast('Service added! ✅'); loadServices(); });
+}
+
+function deleteService(id) {
+  if (confirm('Delete this service?')) {
+    db.collection('services').doc(id).delete().then(() => { showToast('Deleted!'); loadServices(); });
+  }
+}
+
+function loadServices() {
+  db.collection('services').orderBy('order').get().then(snapshot => {
+    const list = document.getElementById('servicesList');
+    list.innerHTML = '';
+    snapshot.forEach(doc => {
+      const d = doc.data();
+      list.innerHTML += `
+        <div class="list-item">
+          <div><i class="${d.icon} me-2"></i> <strong>${d.title}</strong></div>
+          <button class="btn-danger-sm" onclick="deleteService('${doc.id}')"><i class="fas fa-trash"></i></button>
+        </div>`;
+    });
+  });
+}
+
+// ---- REVIEWS ----
+function loadReviews() {
+  db.collection('reviews').orderBy('createdAt', 'desc').get().then(snapshot => {
+    const list = document.getElementById('reviewsList');
+    list.innerHTML = '';
+    if (snapshot.empty) list.innerHTML = '<p class="text-secondary">No reviews yet</p>';
+    snapshot.forEach(doc => {
+      const d = doc.data();
+      const stars = '★'.repeat(d.rating || 5) + '☆'.repeat(5 - (d.rating || 5));
+      list.innerHTML += `
+        <div class="list-item">
+          <div>
+            <strong>${d.name}</strong> <span style="color:#e10600;">${stars}</span>
+            <br><small>${d.message}</small>
+          </div>
+          <button class="btn-danger-sm" onclick="deleteReview('${doc.id}')"><i class="fas fa-trash"></i></button>
+        </div>`;
+    });
+  });
+}
+
+function deleteReview(id) {
+  if (confirm('Delete this review?')) {
+    db.collection('reviews').doc(id).delete().then(() => { showToast('Review deleted!'); loadReviews(); });
+  }
+}
+
+// ---- EXPERIENCE ----
+function addExperience() {
+  const points = document.getElementById('expPoints').value.split('\n').filter(p => p.trim());
+  db.collection('experience').add({
+    title: document.getElementById('expTitle').value,
+    company: document.getElementById('expCompany').value,
+    period: document.getElementById('expPeriod').value,
+    points: points,
+    order: Date.now()
+  }).then(() => { showToast('Experience added! ✅'); loadExperience(); });
+}
+
+function deleteExperience(id) {
+  if (confirm('Delete this experience?')) {
+    db.collection('experience').doc(id).delete().then(() => { showToast('Deleted!'); loadExperience(); });
+  }
+}
+
+function loadExperience() {
+  db.collection('experience').orderBy('order').get().then(snapshot => {
+    const list = document.getElementById('experienceList');
+    list.innerHTML = '';
+    snapshot.forEach(doc => {
+      const d = doc.data();
+      list.innerHTML += `
+        <div class="list-item">
+          <div>
+            <strong>${d.title}</strong> at ${d.company}
+            <br><small>${d.period}</small>
+          </div>
+          <button class="btn-danger-sm" onclick="deleteExperience('${doc.id}')"><i class="fas fa-trash"></i></button>
+        </div>`;
+    });
+  });
+}
+
+// Load all data on startup
+function loadAllData() {
+  loadHero();
+  loadAbout();
+  loadSkillCategories();
+  loadProjects();
+  loadServices();
+  loadReviews();
+  loadExperience();
+}
+
+// Enter key login
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('loginScreen').style.display !== 'none') {
+    login();
+  }
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
