@@ -3,26 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5.0,user-scalable=yes">
-  <title>Kingsley Kenechukwu | Front-End Developer Portfolio</title>
-  <meta name="description" content="Kingsley Kenechukwu - Professional Web Developer specializing in responsive websites, UI/UX design, and modern web technologies.">
-
-  <meta name="keywords" content="web developer, front-end developer, UI/UX designer, Nigeria, React developer">
+  <title>Kingsley Kenechukwu | Web Developer & IT Support Specialist</title>
+  <meta name="description" content="Kingsley Kenechukwu - Professional Web Developer & IT Support Specialist with 3½+ years experience. Responsive websites, UI/UX design, IT support.">
+  <meta name="keywords" content="web developer, front-end developer, UI/UX designer, IT support, Nigeria, React developer, Enugu">
   <meta name="author" content="Kingsley Kenechukwu">
-
-  <meta property="og:title" content="Kingsley Kenechukwu | Web Developer">
-
-  <meta property="og:description" content="Building responsive, high-performance websites.">
+  <meta property="og:title" content="Kingsley Kenechukwu | Web Developer & IT Specialist">
+  <meta property="og:description" content="Building responsive, high-performance websites. IT support specialist.">
   <meta property="og:image" content="images/kings2.png">
 
-  <!-- Bootstrap 5 + Icons + AOS + Font Awesome -->
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
 
   <style>
-    /* ---------- LIGHT / DARK MODE (DARK DEFAULT) ---------- */
     :root {
       --bg-primary: #000000;
       --bg-secondary: #111111;
@@ -51,11 +50,7 @@
       --testimonial-bg: #f9f9f9;
       --contact-card-bg: #ffffff;
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: var(--bg-primary);
       color: var(--text-primary);
@@ -64,9 +59,7 @@
       overflow-x: hidden;
       transition: background 0.3s ease, color 0.3s ease;
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      box-sizing: border-box;
     }
-    /* ---------- NAVBAR & SCROLL SPY ---------- */
     .navbar {
       background-color: var(--navbar-bg) !important;
       backdrop-filter: blur(12px);
@@ -80,9 +73,7 @@
       position: relative;
       padding: 0.5rem 1rem;
     }
-    .navbar-nav .nav-link.active {
-      color: #e10600 !important;
-    }
+    .navbar-nav .nav-link.active { color: #e10600 !important; }
     .navbar-nav .nav-link.active::after {
       content: '';
       position: absolute;
@@ -93,38 +84,28 @@
       background: #e10600;
       border-radius: 2px;
     }
-  #preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  background: #000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #222;
-  border-top: 5px solid #e10600;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin { 
-  100% { transform: rotate(360deg); } 
-}
-    @media (min-width: 992px) {
-      .navbar-nav .nav-link.active::after {
-        left: 1rem;
-        right: 1rem;
-      }
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
     }
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #222;
+      border-top: 5px solid #e10600;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
     .theme-toggle {
       background: transparent;
       border: 2px solid #e10600;
@@ -135,14 +116,8 @@
       transition: 0.2s;
       margin-left: 12px;
     }
-    .theme-toggle:hover {
-      background: #e10600;
-      color: white;
-      transform: scale(0.98);
-    }
+    .theme-toggle:hover { background: #e10600; color: white; }
     .text-accent { color: #e10600 !important; }
-
-    /* ---------- BUTTONS ---------- */
     .btn-primary-custom {
       background: #e10600;
       color: white !important;
@@ -156,10 +131,7 @@
       transition: 0.2s;
       text-decoration: none;
     }
-    .btn-primary-custom:hover {
-      background: #b10500;
-      transform: translateY(-2px);
-    }
+    .btn-primary-custom:hover { background: #b10500; transform: translateY(-2px); }
     .btn-outline-custom {
       border: 2px solid #e10600;
       color: #e10600 !important;
@@ -173,34 +145,11 @@
       transition: 0.2s;
       text-decoration: none;
     }
-    .btn-outline-custom:hover {
-      background: #e10600;
-      color: white !important;
-    }
+    .btn-outline-custom:hover { background: #e10600; color: white !important; }
     .btn-small { padding: 6px 20px; font-size: 0.85rem; }
-
     section, .hero-section { scroll-margin-top: 88px; }
     section { padding: 70px 0; }
-    @media (max-width: 768px) {
-      body { scroll-padding-top: 76px; }
-      section, .hero-section { scroll-margin-top: 76px; }
-      section { padding: 50px 0; }
-      .navbar { padding: 0.75rem 0; }
-      .navbar-nav .nav-link {
-        padding: 0.75rem 0.25rem;
-      }
-      .navbar-nav .nav-link.active::after {
-        left: 0.25rem;
-        right: auto;
-        width: 42px;
-      }
-      .theme-toggle {
-        margin: 10px 0 4px;
-        width: 100%;
-      }
-    }
-
-    /* HERO image */
+    
     .hero-img {
       max-width: 260px;
       width: 100%;
@@ -208,12 +157,7 @@
       display: block;
       margin: 0 auto;
     }
-    .about-img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Cards & trust */
+    .about-img { max-width: 100%; height: auto; }
     .trust-card, .service-card, .card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -222,17 +166,9 @@
     }
     .trust-card { padding: 28px 16px; text-align: center; }
     .trust-card:hover, .service-card:hover { border-color: #e10600; transform: translateY(-4px); }
-    .trust-number {
-      font-size: 2.6rem;
-      font-weight: 800;
-      color: #e10600;
-      display: block;
-      margin: 8px 0;
-    }
+    .trust-number { font-size: 2.6rem; font-weight: 800; color: #e10600; display: block; margin: 8px 0; }
     .service-card { padding: 36px 20px; text-align: center; height: 100%; }
     .service-icon { font-size: 44px; color: #e10600; margin-bottom: 18px; }
-
-    /* TESTIMONIALS */
     .testimonial-card {
       background: var(--testimonial-bg);
       border: 1px solid var(--border-color);
@@ -242,32 +178,15 @@
       height: 100%;
     }
     .testimonial-card:hover { border-color: #e10600; }
-    .testimonial-text {
-      font-size: 1rem;
-      line-height: 1.55;
-      color: var(--text-primary);
-      margin: 18px 0;
-      font-style: normal;
-      font-weight: 400;
-    }
-    .testimonial-author {
-      color: #e10600;
-      font-weight: 700;
-      margin-top: 12px;
-    }
-    .testimonial-stars {
-      color: #e10600;
-      letter-spacing: 2px;
-      margin-top: 6px;
-    }
-
-    /* TOAST */
+    .testimonial-text { font-size: 1rem; line-height: 1.55; color: var(--text-primary); margin: 18px 0; }
+    .testimonial-author { color: #e10600; font-weight: 700; margin-top: 12px; }
+    .testimonial-stars { color: #e10600; letter-spacing: 2px; margin-top: 6px; }
     .toast-notification {
       position: fixed;
       bottom: 100px;
       left: 50%;
       transform: translateX(-50%) translateY(30px);
-      background: #e10600;
+      background: #22c55e;
       color: white;
       padding: 10px 24px;
       border-radius: 60px;
@@ -280,12 +199,7 @@
       white-space: nowrap;
       font-size: 0.9rem;
     }
-    .toast-notification.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-
-    /* filter btns */
+    .toast-notification.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     .filter-btn {
       background: transparent;
       border: 2px solid #e10600;
@@ -294,54 +208,19 @@
       margin: 4px;
       border-radius: 40px;
       font-weight: 500;
+      cursor: pointer;
       transition: 0.2s;
     }
-    .filter-btn.active, .filter-btn:hover {
-      background: #e10600;
-      color: white;
-    }
-
-    /* skill bars */
-    .skill-bar {
-      height: 5px;
-      background: var(--border-color);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    .skill-progress {
-      height: 100%;
-      background: #e10600;
-      width: 0;
-      transition: width 0.9s ease;
-    }
-    .badge-tech {
-      background: #e10600;
-      color: white;
-      padding: 4px 10px;
-      font-size: 0.7rem;
-      border-radius: 20px;
-      display: inline-block;
-      margin-right: 6px;
-    }
-    /* rating stars */
-    .rating-input {
-      display: flex;
-      gap: 8px;
-      direction: rtl;
-      justify-content: flex-start;
-    }
+    .filter-btn.active, .filter-btn:hover { background: #e10600; color: white; }
+    .skill-bar { height: 5px; background: var(--border-color); border-radius: 6px; overflow: hidden; }
+    .skill-progress { height: 100%; background: #e10600; width: 0; transition: width 0.9s ease; }
+    .badge-tech { background: #e10600; color: white; padding: 4px 10px; font-size: 0.7rem; border-radius: 20px; display: inline-block; margin-right: 6px; }
+    .rating-input { display: flex; gap: 8px; direction: rtl; justify-content: flex-start; }
     .rating-input input { display: none; }
-    .rating-input label {
-      font-size: 26px;
-      color: #555;
-      cursor: pointer;
-      transition: 0.1s;
-    }
+    .rating-input label { font-size: 26px; color: #555; cursor: pointer; transition: 0.1s; }
     .rating-input input:checked ~ label,
     .rating-input label:hover,
     .rating-input label:hover ~ label { color: #e10600; }
-
-    /* CONTACT SECTION - improved readability */
     .contact-info-card {
       background: var(--contact-card-bg);
       border: 1px solid var(--border-color);
@@ -350,12 +229,9 @@
       height: 100%;
       transition: 0.2s;
     }
-    .contact-info-card:hover {
-      border-color: #e10600;
-    }
+    .contact-info-card:hover { border-color: #e10600; }
     .contact-icon {
-      width: 55px;
-      height: 55px;
+      width: 55px; height: 55px;
       background: rgba(225,6,0,0.12);
       border-radius: 50%;
       display: flex;
@@ -363,28 +239,10 @@
       justify-content: center;
       margin-bottom: 20px;
     }
-    .contact-icon i {
-      font-size: 28px;
-      color: #e10600;
-    }
-    .contact-info-card h5 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text-primary);
-    }
-    .contact-info-card p {
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-      word-break: break-word;
-    }
-    .contact-info-card .contact-detail {
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    /* footer */
+    .contact-icon i { font-size: 28px; color: #e10600; }
+    .contact-info-card h5 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); }
+    .contact-info-card p { color: var(--text-secondary); margin-bottom: 8px; word-break: break-word; }
+    .contact-info-card .contact-detail { font-size: 0.95rem; color: var(--text-primary); font-weight: 500; }
     .footer {
       background: var(--footer-bg);
       padding: 50px 20px;
@@ -401,8 +259,6 @@
     .social-links { display: flex; gap: 18px; margin-top: 12px; flex-wrap: wrap; }
     .social-links a { font-size: 1.6rem; color: #e10600; transition: 0.2s; }
     .social-links a:hover { color: var(--text-primary); transform: translateY(-3px); }
-
-    /* floating buttons */
     #scrollTopBtn {
       position: fixed;
       bottom: 28px;
@@ -440,11 +296,8 @@
       text-decoration: none;
     }
     .whatsapp-float:hover { transform: scale(1.08); background: #128C7E; color: white; }
-/* modal */
-.modal-content { background: var(--bg-card); border-radius: 20px; border: 1px solid #e10600; }
-.close-btn { background: none; border: none; font-size: 28px; color: var(--text-primary); }
-
-    /* contact form readability */
+    .modal-content { background: var(--bg-card); border-radius: 20px; border: 1px solid #e10600; }
+    .close-btn { background: none; border: none; font-size: 28px; color: var(--text-primary); cursor: pointer; }
     .contact-form input, .contact-form textarea {
       background: var(--input-bg);
       color: var(--text-primary);
@@ -458,318 +311,55 @@
       outline: none;
       box-shadow: 0 0 0 3px rgba(225,6,0,0.1);
     }
-    .contact-form label {
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: var(--text-primary);
+    .contact-form label { font-weight: 500; margin-bottom: 6px; color: var(--text-primary); }
+    .scroll-progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; background: transparent; z-index: 9999; }
+    .progress-bar { height: 100%; background: linear-gradient(90deg, #e10600, #ff4444); width: 0%; transition: width 0.1s ease; }
+    .tech-icon-card { padding: 25px 15px; transition: transform 0.3s ease; border-radius: 12px; background: var(--bg-card); border: 1px solid var(--border-color); }
+    .tech-icon-card:hover { transform: translateY(-8px); border-color: #e10600; }
+    .tech-icon-card i { transition: transform 0.3s ease; display: block; }
+    .tech-icon-card:hover i { transform: scale(1.2); }
+    .tech-icon-card h6 { margin-top: 10px; font-weight: 600; color: var(--text-primary); }
+    .process-number { position: absolute; top: 10px; left: 20px; font-size: 3.5rem; font-weight: 800; color: rgba(225,6,0,0.1); z-index: 0; }
+    .status-dot { width: 12px; height: 12px; background: #22c55e; border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
- /* Skeleton Loading */
-#skeletonLoader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--bg-primary);
-  z-index: 9998;
-  overflow-y: auto;
-  padding: 20px;
-}
-
-.skeleton-box {
-  background: linear-gradient(90deg, 
-    var(--border-color) 25%, 
-    var(--bg-secondary) 50%, 
-    var(--border-color) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 8px;
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Hero skeleton */
-.skeleton-hero-title {
-  height: 48px;
-  width: 80%;
-  margin-bottom: 16px;
-}
-
-.skeleton-hero-subtitle {
-  height: 24px;
-  width: 60%;
-  margin-bottom: 24px;
-}
-
-.skeleton-hero-text {
-  height: 80px;
-  width: 100%;
-  margin-bottom: 24px;
-}
-
-.skeleton-btn {
-  height: 48px;
-  width: 140px;
-  border-radius: 40px;
-  display: inline-block;
-  margin-right: 12px;
-}
-
-.skeleton-avatar {
-  height: 260px;
-  width: 260px;
-  border-radius: 50%;
-  margin: 0 auto;
-}
-
-.skeleton-card {
-  height: 120px;
-  border-radius: 12px;
-  margin-bottom: 16px;
-}
-@keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Add to your CSS */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: transparent;
-  z-index: 9999;
-}
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #e10600, #ff4444);
-  width: 0%;
-  transition: width 0.1s ease;
-}
-/* Add to your CSS section */
-.tech-icon-card {
-  padding: 25px 15px;
-  transition: transform 0.3s ease;
-  border-radius: 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-}
-.tech-icon-card:hover {
-  transform: translateY(-8px);
-  border-color: #e10600;
-}
-.tech-icon-card i {
-  transition: transform 0.3s ease;
-  display: block;
-}
-.tech-icon-card:hover i {
-  transform: scale(1.2);
-}
-.tech-icon-card h6 {
-  margin-top: 10px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-/* Process section styles */
-.process-number {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: rgba(225, 6, 0, 0.1);
-  z-index: 0;
-}
-.status-dot {
-  width: 12px;
-  height: 12px;
-  background: #22c55e;
-  border-radius: 50%;
-  display: inline-block;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-.hero-img {
-  animation: float 3s ease-in-out infinite;
-}
-.js-logo {
-  width: 48px;
-  height: 48px;
-  background: #f7df1e;
-  color: #000;
-  font-weight: 900;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-  font-family: 'Courier New', monospace;
-  letter-spacing: -1px;
-}
-/* Add this media query */
-@media (max-width: 768px) {
-  .hero-section {
-    min-height: auto !important;
-    padding: 40px 0;
-  }
-}
-@media (max-width: 576px) {
-  .footer {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .social-links {
-    justify-content: center;
-  }
-}
-@media (max-width: 576px) {
-  #scrollTopBtn {
-    bottom: 80px;
-    right: 15px;
-  }
-  .whatsapp-float {
-    bottom: 80px;
-    left: 15px;
-  }
-}
-@media (max-width: 576px) {
-  .skill-name {
-    font-size: 0.85rem;
-  }
-  .skill-item {
-    margin-bottom: 10px;
-  }
-}
-
-@media (max-width: 576px) {
-  .contact-form input, 
-  .contact-form textarea {
-    font-size: 16px; /* Prevents iOS zoom on focus */
-  }
-}
-
-/* Fix Tawk.to widget overlapping */
-@media (max-width: 576px) {
-  #scrollTopBtn {
-    bottom: 85px !important;
-    right: 15px !important;
-  }
-  .whatsapp-float {
-    bottom: 85px !important;
-    left: 15px !important;
-  }
-}
-@media (max-width: 768px) {
-  .hero-section {
-    min-height: auto !important;
-    padding: 40px 0;
-  }
-  .hero-section .container {
-    padding: 0 15px;
-  }
-}
-/* Tawk.to mobile visibility */
-iframe[title*="chat" i],
-iframe[title*="Tawk" i],
-iframe[src*="tawk.to"] {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  z-index: 2147483647 !important;
-}
-
-@media (max-width: 576px) {
-  iframe[title*="chat" i],
-  iframe[title*="Tawk" i],
-  iframe[src*="tawk.to"] {
-    position: fixed !important;
-    right: calc(12px + env(safe-area-inset-right)) !important;
-    bottom: calc(12px + env(safe-area-inset-bottom)) !important;
-    z-index: 2147483647 !important;
-    transform: none !important;
-    max-width: calc(100vw - 24px) !important;
-    max-height: calc(100dvh - 24px) !important;
-  }
-
-  div[id*="tawk" i],
-  div[class*="tawk" i] {
-    z-index: 2147483647 !important;
-  }
-
-  #scrollTopBtn {
-    bottom: 85px !important;
-    right: 15px !important;
-  }
-  
-  .whatsapp-float {
-    bottom: 85px !important;
-    left: 15px !important;
-  }
-}
+    /* REMOVED float animation from hero-img */
+    .experience-timeline { position: relative; padding-left: 30px; }
+    .experience-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: #e10600; }
+    .experience-item { position: relative; margin-bottom: 30px; padding-left: 20px; }
+    .experience-item::before { content: ''; position: absolute; left: -34px; top: 6px; width: 12px; height: 12px; background: #e10600; border-radius: 50%; border: 2px solid var(--bg-primary); }
+    .project-modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    .project-modal-img:hover { opacity: 0.8; }
+    
+    @media (max-width: 768px) {
+      body { scroll-padding-top: 76px; }
+      section, .hero-section { scroll-margin-top: 76px; }
+      section { padding: 50px 0; }
+      .navbar { padding: 0.75rem 0; }
+      h1.display-4 { font-size: 2.2rem; }
+      .hero-img { max-width: 200px; }
+    }
+    @media (max-width: 576px) {
+      body { scroll-padding-top: 70px; }
+      section, .hero-section { scroll-margin-top: 70px; }
+      section { padding: 40px 0; }
+      h1.display-4 { font-size: 1.8rem; }
+      .hero-img { max-width: 160px; }
+      .footer { grid-template-columns: 1fr; text-align: center; }
+      .social-links { justify-content: center; }
+      #scrollTopBtn { bottom: 85px !important; right: 15px !important; }
+      .whatsapp-float { bottom: 85px !important; left: 15px !important; }
+    }
   </style>
 </head>
 <body>
-  <!-- Add right after <body> tag -->
-<div class="scroll-progress">
-  <div class="progress-bar" id="scrollProgress"></div>
-</div>
 
-
-
+<div class="scroll-progress"><div class="progress-bar" id="scrollProgress"></div></div>
 <div id="preloader"><div class="spinner"></div></div>
-<div id="toastNotification" class="toast-notification"><i class="fas fa-code"></i> Project coming soon!</div>
-
-<!-- Skeleton Loader -->
-<div id="skeletonLoader" style="display: none;">
-  <div class="container" style="padding-top: 100px;">
-    <div class="row align-items-center mb-5">
-      <div class="col-lg-7">
-        <div class="skeleton-box skeleton-hero-title"></div>
-        <div class="skeleton-box skeleton-hero-subtitle"></div>
-        <div class="skeleton-box skeleton-hero-text"></div>
-        <div style="display: flex; gap: 12px;">
-          <div class="skeleton-box skeleton-btn"></div>
-          <div class="skeleton-box skeleton-btn"></div>
-        </div>
-      </div>
-      <div class="col-lg-5 text-center mt-4 mt-lg-0">
-        <div class="skeleton-box skeleton-avatar"></div>
-      </div>
-    </div>
-    
-    <div class="row g-4 mb-5">
-      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
-      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
-      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
-      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
-      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
-      <div class="col-6 col-md-2"><div class="skeleton-box skeleton-card"></div></div>
-    </div>
-    
-    <div class="row g-4">
-      <div class="col-md-4"><div class="skeleton-box" style="height: 300px; border-radius: 16px;"></div></div>
-      <div class="col-md-4"><div class="skeleton-box" style="height: 300px; border-radius: 16px;"></div></div>
-      <div class="col-md-4"><div class="skeleton-box" style="height: 300px; border-radius: 16px;"></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- end of skeleton loader -->
+<div id="toastNotification" class="toast-notification"><i class="fas fa-check-circle"></i> Review submitted!</div>
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
@@ -781,12 +371,14 @@ iframe[src*="tawk.to"] {
     <div class="collapse navbar-collapse" id="portfolioNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-         <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#process">Work-Plan</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+        <li class="nav-item"><a class="nav-link" href="#process">Work-Plan</a></li>
         <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+        <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
       </ul>
       <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon me-1"></i> <span id="themeText">Dark</span></button>
@@ -794,100 +386,27 @@ iframe[src*="tawk.to"] {
   </div>
 </nav>
 
-
 <!-- HERO -->
 <div class="container hero-section p-3" id="home" style="min-height: 90vh; display: flex; align-items: center;">
   <div class="row align-items-center w-100">
     <div class="col-lg-7 text-center text-lg-start" data-aos="fade-right">
       <h1 class="display-4 fw-bold">Hi, I'm <span class="text-accent">Kingsley Kenechukwu</span></h1>
       <div class="typed-text my-3"><span id="typed-words"></span></div>
-      <p class="lead">I create <span class="text-accent">responsive, interactive websites</span> combining great design and seamless functionality.</p>
+      <p class="lead">I create <span class="text-accent">responsive, interactive websites</span> and provide <span class="text-accent">IT support solutions</span> that drive business growth.</p>
       <div class="d-flex gap-3 flex-wrap mt-4">
         <a href="#contact" class="btn-primary-custom">Hire Me <i class="fas fa-arrow-right"></i></a>
         <a href="#projects" class="btn-outline-custom">View Work <i class="fas fa-code"></i></a>
       </div>
-     <div class="d-flex align-items-center mt-3" data-aos="fade-up" data-aos-delay="300">
-  <div class="status-dot"></div>
-  <span class="ms-2" style="color: var(--text-secondary);">Available for new projects</span>
-</div>
+      <div class="d-flex align-items-center mt-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="status-dot"></div>
+        <span class="ms-2" style="color: var(--text-secondary);">Available for new projects — Enugu State, Nigeria</span>
+      </div>
     </div>
     <div class="col-lg-5 text-center mt-4 mt-lg-0" data-aos="fade-left">
-      <img src="images/kings2.png" class="hero-img" alt="Kingsley">
+      <img src="images/kings2.png" class="hero-img" alt="Kingsley Kenechukwu - Web Developer" style="animation: none;">
     </div>
   </div>
 </div>
-
-
-<section id="skills" class="bg-dark">
-  <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <h2 class="fw-bold">TECH <span class="text-accent">STACK</span></h2>
-      <hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;">
-    </div>
-    <div class="row g-4 text-center">
-      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="100">
-        <div class="tech-icon-card">
-          <i class="fab fa-html5 fa-3x mb-3" style="color: #e34f26;"></i>
-          <h6>HTML5</h6>
-        </div>
-      </div>
-      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="200">
-        <div class="tech-icon-card">
-          <i class="fab fa-css3-alt fa-3x mb-3" style="color: #264de4;"></i>
-          <h6>CSS3</h6>
-        </div>
-      </div>
-      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="300">
-<div class="tech-icon-card">
-  <svg width="48" height="48" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" class="mb-3">
-    <g transform="translate(5,5) scale(0.96)">
-      <path fill="#F7DF1E" d="M0,0 L256,0 L256,256 L0,256 Z"/>
-      <path fill="#000000" d="M67.312,213.932 L86.902,202.076 C90.682,208.776 94.116,214.432 102.63,214.432 C110.61,214.432 115.658,211.308 115.658,199.212 L115.658,102.632 L142.106,102.632 L142.106,199.616 C142.106,228.84 124.166,241.932 97.678,241.932 C73.524,241.932 60.666,229.444 53.646,213.932 L67.312,213.932 Z"/>
-      <path fill="#000000" d="M153.816,211.756 L172.698,200.8 C177.67,208.724 184.15,214.616 195.606,214.616 C205.066,214.616 211.11,209.884 211.11,203.334 C211.11,195.504 204.89,192.75 194.416,188.2 L188.616,185.714 C172.068,178.654 161.116,169.792 161.116,152.966 C161.116,137.456 173.108,125.668 191.85,125.668 C205.188,125.668 214.776,130.332 221.682,142.428 L208.24,150.992 C205.28,145.688 202.108,143.596 197.196,143.596 C192.084,143.596 188.838,146.84 188.838,151.456 C188.838,156.96 192.084,159.192 201.966,163.432 L207.766,165.92 C227.32,174.3 238.272,182.764 238.272,200.2 C238.272,218.664 222.298,228.784 200.778,228.784 C179.966,228.784 166.596,218.86 158.88,211.756 L153.816,211.756 Z"/>
-    </g>
-  </svg>
-  <h6>JavaScript</h6>
-</div>
-
-      </div>
-      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="400">
-        <div class="tech-icon-card">
-          <i class="fab fa-react fa-3x mb-3" style="color: #61dafb;"></i>
-          <h6>React</h6>
-        </div>
-      </div>
-      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="500">
-        <div class="tech-icon-card">
-          <i class="fab fa-node-js fa-3x mb-3" style="color: #68a063;"></i>
-          <h6>Node.js</h6>
-        </div>
-      </div>
-      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="600">
-        <div class="tech-icon-card">
-          <i class="fab fa-bootstrap fa-3x mb-3" style="color: #7952b3;"></i>
-          <h6>Bootstrap</h6>
-        </div>
-      </div>
-
-            <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="500">
-<div class="tech-icon-card">
-  <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="mb-3">
-    <rect width="48" height="48" rx="8" fill="#F7DF1E"/>
-    <text x="24" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#000000">JS</text>
-  </svg>
-  <h6>JavaScript</h6>
-</div>
-      </div>
-
-            <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="500">
-        <div class="tech-icon-card">
-          <i class="fab fa-php fa-3x mb-3" style="color: #68a063;"></i>
-          <h6>PHP</h6>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- TRUST SECTION -->
 <section id="trustSection">
@@ -906,29 +425,89 @@ iframe[src*="tawk.to"] {
   </div>
 </section>
 
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="fw-bold">TECHNICAL <span class="text-accent">SKILLS</span></h2>
+      <hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;">
+    </div>
+    
+    <!-- Web Development Skills -->
+    <h4 class="text-accent mb-3" data-aos="fade-up">🌐 Web Development</h4>
+    <div class="row g-4 text-center mb-5">
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="100"><div class="tech-icon-card"><i class="fab fa-html5 fa-3x mb-3" style="color:#e34f26;"></i><h6>HTML5</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="150"><div class="tech-icon-card"><i class="fab fa-css3-alt fa-3x mb-3" style="color:#264de4;"></i><h6>CSS3</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="200"><div class="tech-icon-card"><i class="fab fa-js fa-3x mb-3" style="color:#f7df1e;"></i><h6>JavaScript</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="250"><div class="tech-icon-card"><i class="fab fa-react fa-3x mb-3" style="color:#61dafb;"></i><h6>React.js</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="300"><div class="tech-icon-card"><i class="fab fa-node-js fa-3x mb-3" style="color:#68a063;"></i><h6>Node.js</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="350"><div class="tech-icon-card"><i class="fab fa-bootstrap fa-3x mb-3" style="color:#7952b3;"></i><h6>Bootstrap 5</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="400"><div class="tech-icon-card"><i class="fas fa-paint-brush fa-3x mb-3" style="color:#06b6d4;"></i><h6>Tailwind CSS</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="450"><div class="tech-icon-card"><i class="fab fa-php fa-3x mb-3" style="color:#777bb4;"></i><h6>PHP</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="500"><div class="tech-icon-card"><i class="fab fa-figma fa-3x mb-3" style="color:#a259ff;"></i><h6>Figma</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in" data-aos-delay="550"><div class="tech-icon-card"><i class="fab fa-git-alt fa-3x mb-3" style="color:#f05032;"></i><h6>Git/GitHub</h6></div></div>
+    </div>
 
+    <!-- IT Support Skills -->
+    <h4 class="text-accent mb-3" data-aos="fade-up">🔧 IT Support & Technical Services</h4>
+    <div class="row g-4 text-center mb-5">
+      <div class="col-6 col-md-2" data-aos="zoom-in"><div class="tech-icon-card"><i class="fas fa-desktop fa-3x mb-3" style="color:#e10600;"></i><h6>Hardware Repair</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in"><div class="tech-icon-card"><i class="fab fa-windows fa-3x mb-3" style="color:#0078d4;"></i><h6>Windows OS</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in"><div class="tech-icon-card"><i class="fas fa-network-wired fa-3x mb-3" style="color:#e10600;"></i><h6>Networking</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in"><div class="tech-icon-card"><i class="fas fa-shield-virus fa-3x mb-3" style="color:#22c55e;"></i><h6>Malware Removal</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in"><div class="tech-icon-card"><i class="fas fa-server fa-3x mb-3" style="color:#e10600;"></i><h6>Server Mgmt</h6></div></div>
+      <div class="col-6 col-md-2" data-aos="zoom-in"><div class="tech-icon-card"><i class="fas fa-print fa-3x mb-3" style="color:#e10600;"></i><h6>Printer Setup</h6></div></div>
+    </div>
+
+    <!-- Hosting & Deployment -->
+    <h4 class="text-accent mb-3" data-aos="fade-up">☁️ Hosting & Deployment</h4>
+    <div class="row g-3 text-center justify-content-center mb-4">
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">cPanel</span></div>
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">Vercel</span></div>
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">Netlify</span></div>
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">GitHub Pages</span></div>
+    </div>
+
+    <!-- Productivity Tools -->
+    <h4 class="text-accent mb-3" data-aos="fade-up">📊 Productivity Tools</h4>
+    <div class="row g-3 text-center justify-content-center">
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">MS Word</span></div>
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">MS Excel</span></div>
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">PowerPoint</span></div>
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">MS Access</span></div>
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">Canva</span></div>
+      <div class="col-4 col-md-2" data-aos="zoom-in"><span class="badge-tech" style="font-size:0.9rem; padding:8px 16px;">VS Code</span></div>
+    </div>
+  </div>
+</section>
 
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">ABOUT <span class="text-accent">ME</span></h2><hr style="width: 60px; height: 3px; background: #e10600; border:0; margin: 16px auto;"></div>
+    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">ABOUT <span class="text-accent">ME</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"></div>
     <div class="row align-items-center">
-      <div class="col-lg-4 text-center mb-4" data-aos="fade-right"><img src="images/kings1.png" class="about-img" alt="Kingsley"></div>
+      <div class="col-lg-4 text-center mb-4" data-aos="fade-right"><img src="images/kings1.png" class="about-img" alt="Kingsley Kenechukwu" loading="lazy"></div>
       <div class="col-lg-8" data-aos="fade-left">
-        <h4 class="fw-bold text-accent">Who Am I?</h4>
-        <p>Web Developer with 3+ years of experience building responsive, high-performance websites. I blend modern design with clean code.</p>
-
-        <div class="row mt-3">
-          <div class="col-md-6"><div class="skill-item"><span class="skill-name">HTML/CSS</span><div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div></div>
-          <div class="skill-item"><span class="skill-name">JavaScript</span><div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div></div>
-          <div class="skill-item"><span class="skill-name">React.js</span><div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div></div></div>
-          <div class="col-md-6"><div class="skill-item"><span class="skill-name">Bootstrap/Tailwind</span><div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div></div>
-          <div class="skill-item"><span class="skill-name">Node.js</span><div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div></div>
-          <div class="skill-item"><span class="skill-name">PHP</span><div class="skill-bar"><div class="skill-progress" style="width: 82%"></div></div></div></div>
+        <h4 class="fw-bold text-accent">Professional Summary</h4>
+        <p>Results-driven and versatile technology professional with over <strong>3½ years of experience</strong> in web development and <strong>2 years in IT support</strong>. Skilled in website development, UI/UX design, help desk support, technical troubleshooting, system administration, server management, and software installation. I deliver reliable solutions that enhance operational efficiency and support organizational growth.</p>
+        
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="skill-item"><span class="skill-name">HTML/CSS</span><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">JavaScript</span><div class="skill-bar"><div class="skill-progress" style="width:88%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">React.js</span><div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">IT Support/Hardware</span><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
+          </div>
+          <div class="col-md-6">
+            <div class="skill-item"><span class="skill-name">Bootstrap/Tailwind</span><div class="skill-bar"><div class="skill-progress" style="width:92%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Node.js/PHP</span><div class="skill-bar"><div class="skill-progress" style="width:80%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Networking/Troubleshooting</span><div class="skill-bar"><div class="skill-progress" style="width:87%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Server Management</span><div class="skill-bar"><div class="skill-progress" style="width:82%"></div></div></div>
+          </div>
         </div>
         <div class="d-flex gap-3 flex-wrap mt-4">
-          <button class="btn-primary-custom btn-small" data-bs-toggle="modal" data-bs-target="#portfolioModal"><i class="fas fa-eye"></i> View Portfolio</button>
-          <a href="UGWU_KINGSLEY_KENECHUKWU_POLISHED_CV.pdf" class="btn-outline-custom btn-small" download><i class="fas fa-download"></i> Download CV</a>
+          <button class="btn-primary-custom btn-small" data-bs-toggle="modal" data-bs-target="#resumeModal"><i class="fas fa-eye"></i> View Resume</button>
+          <a href="UGWU_KINGSLEY_KENECHUKWU_Resume.docx" class="btn-outline-custom btn-small" download><i class="fas fa-download"></i> Download CV</a>
           <a href="#contact" class="btn-outline-custom btn-small"><i class="fas fa-envelope"></i> Contact Me</a>
         </div>
       </div>
@@ -936,232 +515,267 @@ iframe[src*="tawk.to"] {
   </div>
 </section>
 
-<section id="process">
+<!-- PROFESSIONAL EXPERIENCE -->
+<section id="experience" class="bg-dark">
   <div class="container">
     <div class="text-center mb-5" data-aos="fade-up">
-      <h2 class="fw-bold">HOW I <span class="text-accent">WORK</span></h2>
+      <h2 class="fw-bold">PROFESSIONAL <span class="text-accent">EXPERIENCE</span></h2>
       <hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;">
     </div>
-    <div class="row g-4">
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-        <div class="service-card position-relative">
-          <div class="process-number">01</div>
-          <i class="fas fa-comments service-icon"></i>
-          <h5>Discovery</h5>
-          <p>Understanding your goals and requirements</p>
-        </div>
-      </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-        <div class="service-card position-relative">
-          <div class="process-number">02</div>
-          <i class="fas fa-pencil-ruler service-icon"></i>
-          <h5>Design</h5>
-          <p>Creating wireframes and visual designs</p>
-        </div>
-      </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-        <div class="service-card position-relative">
-          <div class="process-number">03</div>
-          <i class="fas fa-code service-icon"></i>
-          <h5>Development</h5>
-          <p>Building with clean, efficient code</p>
-        </div>
-      </div>
-      <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
-        <div class="service-card position-relative">
-          <div class="process-number">04</div>
-          <i class="fas fa-rocket service-icon"></i>
-          <h5>Launch</h5>
-          <p>Testing, deployment, and support</p>
+    <div class="row justify-content-center" data-aos="fade-up">
+      <div class="col-lg-8">
+        <div class="experience-timeline" id="experienceContainer">
+          <!-- Web Developer / IT Specialist (2025 – Present) -->
+          <div class="experience-item">
+            <h5 class="text-accent">Web Developer / IT Specialist</h5>
+            <p class="small text-secondary mb-2"><i class="fas fa-building me-2"></i>Kobia Publishing Services Limited, Enugu State <span class="ms-3"><i class="fas fa-calendar me-1"></i>2025 – Present</span></p>
+            <ul class="small">
+              <li>Developed and maintained responsive websites, improving usability and accessibility across devices.</li>
+              <li>Increased workflow efficiency by 20% through timely troubleshooting and technical support services.</li>
+              <li>Installed, configured, and maintained operating systems, software applications, and office productivity tools.</li>
+              <li>Provided hardware, software, and network support, minimizing downtime and improving staff productivity.</li>
+              <li>Implemented server management and security practices to enhance system reliability and performance.</li>
+            </ul>
+          </div>
+          <!-- Web Developer & UI/UX Designer (2024 – 2025) -->
+          <div class="experience-item">
+            <h5 class="text-accent">Web Developer & UI/UX Designer</h5>
+            <p class="small text-secondary mb-2"><i class="fas fa-building me-2"></i>Meks Digitech, Enugu State <span class="ms-3"><i class="fas fa-calendar me-1"></i>2024 – 2025</span></p>
+            <ul class="small">
+              <li>Designed and developed responsive websites using HTML5, CSS3, JavaScript, React.js, Bootstrap 5, Tailwind CSS, and Node.js.</li>
+              <li>Created modern and user-friendly interfaces that enhanced user experience and accessibility.</li>
+              <li>Increased project delivery efficiency by 20% through optimized development practices.</li>
+              <li>Customized and maintained websites according to client requirements.</li>
+            </ul>
+          </div>
+          <!-- Industrial Training (2020 – 2021) -->
+          <div class="experience-item">
+            <h5 class="text-accent">Industrial Training Student</h5>
+            <p class="small text-secondary mb-2"><i class="fas fa-building me-2"></i>J&J Computer Training Institute <span class="ms-3"><i class="fas fa-calendar me-1"></i>2020 – 2021</span></p>
+            <ul class="small">
+              <li>Acquired practical experience in software development using Visual Basic 6.0 and Python.</li>
+              <li>Participated in web development projects and technical troubleshooting activities.</li>
+            </ul>
+          </div>
+          <!-- Computer Engineering Trainee (2016 – 2018) -->
+          <div class="experience-item">
+            <h5 class="text-accent">Computer Engineering Trainee</h5>
+            <p class="small text-secondary mb-2"><i class="fas fa-building me-2"></i>InfoTech Computer Training Institute <span class="ms-3"><i class="fas fa-calendar me-1"></i>2016 – 2018</span></p>
+            <ul class="small">
+              <li>Installed and configured Windows operating systems and Microsoft Office applications.</li>
+              <li>Diagnosed and repaired computer hardware and software faults.</li>
+              <li>Performed virus detection, malware removal, and system optimization procedures.</li>
+              <li>Configured printers and peripheral devices for end users.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MODAL for PDF preview -->
-<div class="modal fade" id="portfolioModal" tabindex="-1"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-accent">Portfolio / CV</h5><button type="button" class="close-btn" data-bs-dismiss="modal">&times;</button></div><div class="modal-body p-0"><iframe src="UGWU_KINGSLEY_KENECHUKWU_POLISHED_CV.pdf" class="pdf-preview" style="width:100%; height:70vh; border:none;"></iframe></div><div class="modal-footer"><a href="UGWU_KINGSLEY_KENECHUKWU_POLISHED_CV.pdf" class="btn-primary-custom btn-small" download><i class="fas fa-download"></i> Download CV</a><button class="btn-outline-custom btn-small" data-bs-dismiss="modal">Close</button></div></div></div></div>
-
-<!-- SERVICES -->
-<section id="services" class="bg-dark">
-  <div class="container"><div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">MY <span class="text-accent">SERVICES</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"></div>
+<!-- WORK PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">HOW I <span class="text-accent">WORK</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"></div>
     <div class="row g-4">
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="service-card"><i class="fas fa-code service-icon"></i><h5>Web Development</h5><p>Modern, scalable websites with great UX.</p></div></div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="service-card"><i class="fas fa-palette service-icon"></i><h5>UI/UX Design</h5><p>Intuitive interfaces that users love.</p></div></div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300"><div class="service-card"><i class="fas fa-mobile-alt service-icon"></i><h5>Responsive Design</h5><p>Flawless on mobiles, tablets, desktops.</p></div></div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="100"><div class="service-card position-relative"><div class="process-number">01</div><i class="fas fa-comments service-icon"></i><h5>Discovery</h5><p>Understanding your goals and requirements</p></div></div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="200"><div class="service-card position-relative"><div class="process-number">02</div><i class="fas fa-pencil-ruler service-icon"></i><h5>Design</h5><p>Creating wireframes and visual designs</p></div></div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="300"><div class="service-card position-relative"><div class="process-number">03</div><i class="fas fa-code service-icon"></i><h5>Development</h5><p>Building with clean, efficient code</p></div></div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="400"><div class="service-card position-relative"><div class="process-number">04</div><i class="fas fa-rocket service-icon"></i><h5>Launch & Support</h5><p>Testing, deployment, and ongoing support</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
-  <div class="container"><div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">MY <span class="text-accent">PROJECTS</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"></div>
-    <div class="text-center mb-4" data-aos="fade-up"><button class="filter-btn active" data-filter="all">All</button><button class="filter-btn" data-filter="web">Web Apps</button><button class="filter-btn" data-filter="ecommerce">E-commerce</button><button class="filter-btn" data-filter="landing">Landing</button></div>
+<section id="projects" class="bg-dark">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">MY <span class="text-accent">PROJECTS</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"></div>
+    <div class="text-center mb-4" data-aos="fade-up">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="web">Web Apps</button>
+      <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+      <button class="filter-btn" data-filter="landing">Landing</button>
+    </div>
     <div class="row g-4" id="projectsContainer">
-      <div class="col-md-4 project-item" data-category="web" data-aos="flip-up"><div class="card h-100"><img src="images/project1.png" class="card-img-top" alt="portfolio"><div class="card-body"><h5 class="card-title">Portfolio Website</h5><p class="small">Modern portfolio with smooth UI.</p><div><span class="badge-tech">HTML/CSS</span><span class="badge-tech">JS</span><span class="badge-tech">Bootstrap</span></div></div><div class="card-footer bg-transparent border-0 text-center"><button class="btn-outline-custom btn-small project-btn">Live Demo</button></div></div></div>
-      <div class="col-md-4 project-item" data-category="ecommerce" data-aos="flip-up"><div class="card h-100"><img src="images/project2.png" class="card-img-top" alt="ecommerce"><div class="card-body"><h5 class="card-title">E‑commerce Store</h5><p class="small">Full cart + payment flow.</p><div><span class="badge-tech">React</span><span class="badge-tech">Node.js</span></div></div><div class="card-footer bg-transparent border-0 text-center"><button class="btn-outline-custom btn-small project-btn">Live Demo</button></div></div></div>
-      <div class="col-md-4 project-item" data-category="landing" data-aos="flip-up"><div class="card h-100"><img src="images/project3.png" class="card-img-top" alt="landing"><div class="card-body"><h5 class="card-title">Landing Page</h5><p class="small">High‑conversion design.</p><div><span class="badge-tech">Tailwind</span><span class="badge-tech">JS</span></div></div><div class="card-footer bg-transparent border-0 text-center"><button class="btn-outline-custom btn-small project-btn">Live Demo</button></div></div></div>
+      <!-- Fallback projects (shown if Firebase is empty) -->
+      <div class="col-md-4 project-item" data-category="web" data-aos="flip-up">
+        <div class="card h-100">
+          <img src="images/project1.png" class="card-img-top" alt="Portfolio Website" loading="lazy">
+          <div class="card-body"><h5 class="card-title">Portfolio Website</h5><p class="small">Modern portfolio with smooth UI.</p><div><span class="badge-tech">HTML/CSS</span><span class="badge-tech">JS</span><span class="badge-tech">Bootstrap</span></div></div>
+          <div class="card-footer bg-transparent border-0 text-center"><button class="btn-outline-custom btn-small project-btn" onclick="openProjectModal('Portfolio Website', ['images/project1.png'])">View Gallery</button></div>
+        </div>
+      </div>
+      <div class="col-md-4 project-item" data-category="ecommerce" data-aos="flip-up">
+        <div class="card h-100">
+          <img src="images/project2.png" class="card-img-top" alt="E-commerce Store" loading="lazy">
+          <div class="card-body"><h5 class="card-title">E‑commerce Store</h5><p class="small">Full cart + payment flow.</p><div><span class="badge-tech">React</span><span class="badge-tech">Node.js</span></div></div>
+          <div class="card-footer bg-transparent border-0 text-center"><button class="btn-outline-custom btn-small project-btn" onclick="openProjectModal('E‑commerce Store', ['images/project2.png'])">View Gallery</button></div>
+        </div>
+      </div>
+      <div class="col-md-4 project-item" data-category="landing" data-aos="flip-up">
+        <div class="card h-100">
+          <img src="images/project3.png" class="card-img-top" alt="Landing Page" loading="lazy">
+          <div class="card-body"><h5 class="card-title">Landing Page</h5><p class="small">High‑conversion design.</p><div><span class="badge-tech">Tailwind</span><span class="badge-tech">JS</span></div></div>
+          <div class="card-footer bg-transparent border-0 text-center"><button class="btn-outline-custom btn-small project-btn" onclick="openProjectModal('Landing Page', ['images/project3.png'])">View Gallery</button></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials" class="bg-dark">
-  <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">CLIENT <span class="text-accent">TESTIMONIALS</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"><p class="lead">What my clients say</p></div>
-    <div class="row mb-5">
-      <div class="col-md-6 mb-4" data-aos="fade-right"><div class="testimonial-card"><i class="fas fa-quote-left fa-2x text-accent"></i><div class="testimonial-text">"Kingsley delivered on schedule and exceeded expectations. Meticulous attention to detail and exceptional quality."</div><div class="testimonial-author"><strong>Fidelis Agboh</strong><div class="testimonial-stars">★★★★★</div></div></div></div>
-      <div class="col-md-6 mb-4" data-aos="fade-left"><div class="testimonial-card"><i class="fas fa-quote-left fa-2x text-accent"></i><div class="testimonial-text">"Highly recommend Kingsley for a professionally designed, responsive website that drives results."</div><div class="testimonial-author"><strong>Joshua Omekanna</strong><div class="testimonial-stars">★★★★★</div></div></div></div>
+<!-- PROJECT IMAGE MODAL -->
+<div class="modal fade" id="projectImageModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title text-accent" id="projectModalTitle">Project Gallery</h5><button type="button" class="close-btn" data-bs-dismiss="modal">&times;</button></div>
+      <div class="modal-body"><div class="row g-3" id="projectModalImages"></div></div>
     </div>
-    <div class="row justify-content-center" data-aos="zoom-in"><div class="col-md-8"><div class="card p-4"><h4 class="text-accent">Leave a Review</h4><form id="reviewForm"><input type="text" id="reviewerName" class="form-control mb-3" placeholder="Your Name"><textarea id="reviewMessage" class="form-control mb-3" rows="3" placeholder="Your feedback..."></textarea><div class="mb-3"><label class="mb-1">Rating</label><div class="rating-input"><input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label><input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label><input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label><input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label><input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label></div></div><button type="submit" class="btn-primary-custom btn-small">Submit Review <i class="fas fa-paper-plane"></i></button></form><div id="userReviews" class="mt-4"></div></div></div></div>
   </div>
-</section>
+</div>
 
-<!-- CONTACT SECTION - IMPROVED READABILITY -->
-<section id="contact">
+<!-- SERVICES -->
+<section id="services">
   <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <h2 class="fw-bold">GET IN <span class="text-accent">TOUCH</span></h2>
-      <hr style="width: 60px; height: 3px; background: #e10600; border: 0; margin: 16px auto;">
-      <p class="lead">Let's work together. Reach out anytime!</p>
-    </div>
+    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">MY <span class="text-accent">SERVICES</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"></div>
     <div class="row g-4">
-      <!-- Contact Info Cards - Clean & Readable -->
-      <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
-        <div class="contact-info-card">
-          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-          <h5>Email Me</h5>
-          <p class="contact-detail">ugwukingsley797@gmail.com</p>
-          <p class="small text-secondary">I'll respond within 24 hours</p>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="service-card"><i class="fas fa-code service-icon"></i><h5>Web Development</h5><p>Modern, scalable websites with great UX. From landing pages to full web applications.</p></div></div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="service-card"><i class="fas fa-palette service-icon"></i><h5>UI/UX Design</h5><p>Intuitive interfaces that users love. Wireframes, prototypes, and visual designs using Figma.</p></div></div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300"><div class="service-card"><i class="fas fa-mobile-alt service-icon"></i><h5>Responsive Design</h5><p>Flawless on mobiles, tablets, and desktops. Every project is mobile-first.</p></div></div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="400"><div class="service-card"><i class="fas fa-tools service-icon"></i><h5>IT Support</h5><p>Hardware repairs, software installation, network troubleshooting, and system maintenance.</p></div></div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="500"><div class="service-card"><i class="fas fa-shield-alt service-icon"></i><h5>Server Management</h5><p>Server setup, security configuration, and ongoing maintenance for reliable performance.</p></div></div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="600"><div class="service-card"><i class="fas fa-headset service-icon"></i><h5>Technical Support</h5><p>Help desk support, troubleshooting, and customer service for business continuity.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & CERTIFICATIONS -->
+<section id="education" class="bg-dark">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">EDUCATION & <span class="text-accent">CERTIFICATIONS</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"></div>
+    <div class="row g-4">
+      <div class="col-md-6" data-aos="fade-right">
+        <h4 class="text-accent mb-3"><i class="fas fa-graduation-cap me-2"></i>Education</h4>
+        <div class="card p-3 mb-3">
+          <h6 class="fw-bold">B.Sc. Computer Science</h6>
+          <p class="small text-secondary">Enugu State University of Science and Technology (ESUT) | 2021</p>
+        </div>
+        <div class="card p-3 mb-3">
+          <h6 class="fw-bold">WAEC Certificate</h6>
+          <p class="small text-secondary">St. Patrick's College, Emene | 2017</p>
         </div>
       </div>
-      <div class="col-lg-4" data-aos="fade-right" data-aos-delay="200">
-        <div class="contact-info-card">
-          <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-          <h5>Call / WhatsApp</h5>
-          <p class="contact-detail">+234 912 702 3717</p>
-          <p class="small text-secondary">Mon-Fri, 9am - 6pm WAT</p>
-        </div>
-      </div>
-      <div class="col-lg-4" data-aos="fade-right" data-aos-delay="300">
-        <div class="contact-info-card">
-          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-          <h5>Location</h5>
-          <p class="contact-detail">Nigeria (Remote / Worldwide)</p>
-          <p class="small text-secondary">Available for global projects</p>
-        </div>
+      <div class="col-md-6" data-aos="fade-left">
+        <h4 class="text-accent mb-3"><i class="fas fa-certificate me-2"></i>Certifications</h4>
+        <div class="card p-3 mb-3"><h6 class="fw-bold">NYSC Certificate</h6><p class="small text-secondary">2025</p></div>
+        <div class="card p-3 mb-3"><h6 class="fw-bold">Computer Engineering Certificate</h6><p class="small text-secondary">InfoTech | 2018</p></div>
+        <div class="card p-3 mb-3"><h6 class="fw-bold">Microsoft Packages Certificate</h6><p class="small text-secondary">InfoTech | 2018</p></div>
       </div>
     </div>
-    <!-- Contact Form Card -->
-    <div class="row mt-5" data-aos="fade-up">
-      <div class="col-12">
-        <div class="card p-4 p-md-5">
-          <h4 class="text-accent mb-4">Send me a message</h4>
-          <form class="contact-form" id="contactForm">
-            <div class="row g-4">
-              <div class="col-md-6">
-                <label class="form-label">Full name</label>
-                <input type="text" class="form-control" name="name" placeholder="e.g., John Doe" required>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Email address</label>
-                <input type="email" class="form-control" name="email" placeholder="hello@example.com" required>
-              </div>
-              <div class="col-12">
-                <label class="form-label">Subject</label>
-                <input type="text" class="form-control" name="subject" placeholder="Project inquiry / Collaboration" required>
-              </div>
-              <div class="col-12">
-                <label class="form-label">Message</label>
-                <textarea class="form-control" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
-              </div>
-              <div class="col-12 text-center">
-                <button type="submit" class="btn-primary-custom px-5">Send Message <i class="fas fa-paper-plane ms-2"></i></button>
+    <div class="text-center mt-4" data-aos="fade-up">
+      <h5 class="text-accent">Languages</h5>
+      <p><span class="badge-tech" style="font-size:0.9rem;">English (Fluent)</span> <span class="badge-tech" style="font-size:0.9rem;">Igbo (Native)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS / REVIEWS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">CLIENT <span class="text-accent">REVIEWS</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"><p class="lead">What people say about my work — <span class="text-accent">live from Firebase</span></p></div>
+    
+    <!-- Firebase Reviews Display -->
+    <div class="row mb-5" id="firebaseReviewsContainer">
+      <div class="col-12 text-center py-4"><div class="spinner-border text-accent" role="status"><span class="visually-hidden">Loading reviews...</span></div></div>
+    </div>
+    
+    <!-- Submit Review Form -->
+    <div class="row justify-content-center" data-aos="zoom-in">
+      <div class="col-md-8">
+        <div class="card p-4">
+          <h4 class="text-accent">Leave a Review <span class="small text-secondary">(Goes live instantly!)</span></h4>
+          <form id="reviewForm">
+            <input type="text" id="reviewerName" class="form-control mb-3" placeholder="Your Name" required>
+            <textarea id="reviewMessage" class="form-control mb-3" rows="3" placeholder="Your feedback..." required></textarea>
+            <div class="mb-3"><label class="mb-1">Rating</label>
+              <div class="rating-input">
+                <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+                <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+                <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+                <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+                <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
               </div>
             </div>
+            <button type="submit" class="btn-primary-custom btn-small">Submit Review <i class="fas fa-paper-plane"></i></button>
           </form>
+          <p id="reviewStatus" class="mt-3 text-center" style="display:none;"></p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER - Fixed Links -->
-<footer class="footer">
-  <div>
-    <h5>KingsDev</h5>
-    <p>Web Developer crafting high-quality, responsive web experiences.</p>
+<!-- CONTACT -->
+<section id="contact" class="bg-dark">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up"><h2 class="fw-bold">GET IN <span class="text-accent">TOUCH</span></h2><hr style="width:60px; height:3px; background:#e10600; border:0; margin:16px auto;"><p class="lead">Let's work together. Reach out anytime!</p></div>
+    <div class="row g-4">
+      <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100"><div class="contact-info-card"><div class="contact-icon"><i class="fas fa-envelope"></i></div><h5>Email Me</h5><p class="contact-detail">ugwukingsley797@gmail.com</p><p class="small text-secondary">I'll respond within 24 hours</p></div></div>
+      <div class="col-lg-4" data-aos="fade-right" data-aos-delay="200"><div class="contact-info-card"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><h5>Call / WhatsApp</h5><p class="contact-detail">+234 912 702 3717</p><p class="small text-secondary">Mon-Fri, 9am - 6pm WAT</p></div></div>
+      <div class="col-lg-4" data-aos="fade-right" data-aos-delay="300"><div class="contact-info-card"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><h5>Location</h5><p class="contact-detail">Enugu State, Nigeria</p><p class="small text-secondary">Remote / Worldwide</p></div></div>
+    </div>
+    <div class="row mt-5" data-aos="fade-up"><div class="col-12"><div class="card p-4 p-md-5"><h4 class="text-accent mb-4">Send me a message</h4>
+      <form class="contact-form" id="contactForm">
+        <div class="row g-4">
+          <div class="col-md-6"><label class="form-label">Full name</label><input type="text" class="form-control" name="name" placeholder="e.g., John Doe" required></div>
+          <div class="col-md-6"><label class="form-label">Email address</label><input type="email" class="form-control" name="email" placeholder="hello@example.com" required></div>
+          <div class="col-12"><label class="form-label">Subject</label><input type="text" class="form-control" name="subject" placeholder="Project inquiry / Collaboration" required></div>
+          <div class="col-12"><label class="form-label">Message</label><textarea class="form-control" name="message" rows="5" placeholder="Tell me about your project..." required></textarea></div>
+          <div class="col-12 text-center"><button type="submit" class="btn-primary-custom px-5">Send Message <i class="fas fa-paper-plane ms-2"></i></button></div>
+        </div>
+      </form>
+    </div></div></div>
   </div>
-  <div>
-    <h5>Quick Links</h5>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#testimonials">Testimonials</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-  <div>
-    <h5>Connect</h5>
-    <p><i class="fas fa-envelope me-2"></i> ugwukingsley797@gmail.com</p>
-    <p><i class="fas fa-phone me-2"></i> +234 912 702 3717</p>
-    <div class="social-links">
-      <a href="https://www.facebook.com/share/18MmvwXQrC/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://www.linkedin.com/in/ugwu-kingsley-379203282" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+</section>
+
+<!-- RESUME MODAL -->
+<div class="modal fade" id="resumeModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title text-accent">Resume / CV</h5><button type="button" class="close-btn" data-bs-dismiss="modal">&times;</button></div>
+      <div class="modal-body text-center p-5">
+        <i class="fas fa-file-word fa-5x mb-4" style="color:#2b579a;"></i>
+        <h4>UGWU_KINGSLEY_KENECHUKWU_Resume.docx</h4>
+        <p class="text-secondary mt-3">Microsoft Word Document<br>Click below to download and view</p>
+        <a href="UGWU_KINGSLEY_KENECHUKWU_Resume.docx" class="btn-primary-custom mt-3" download><i class="fas fa-download"></i> Download Resume</a>
+      </div>
     </div>
   </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div><h5>KingsDev</h5><p>Web Developer & IT Support Specialist crafting high-quality, responsive web experiences and reliable technical solutions.</p></div>
+  <div><h5>Quick Links</h5><ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#services">Services</a></li><li><a href="#education">Education</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#contact">Contact</a></li></ul></div>
   <div>
-    <h5>Work With Me</h5>
-    <p>Available for freelance & full-time opportunities.</p>
-    <a href="#contact" class="btn-primary-custom btn-small">Start a Project →</a>
+    <h5>Connect</h5>
+    <p><i class="fas fa-envelope me-2"></i>ugwukingsley797@gmail.com</p>
+    <p><i class="fas fa-phone me-2"></i>+234 912 702 3717</p>
+    <div class="social-links">
+      <a href="https://www.facebook.com/share/18MmvwXQrC/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.linkedin.com/in/ugwu-kingsley-379203282" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/kingsdev" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    </div>
   </div>
+  <div><h5>Work With Me</h5><p>Available for freelance & full-time opportunities.</p><a href="#contact" class="btn-primary-custom btn-small">Start a Project →</a></div>
 </footer>
 
 <button id="scrollTopBtn"><i class="fas fa-arrow-up"></i></button>
-<a href="https://wa.me/2349127023717?text=Hello%20Kingsley%2C%20I%20saw%20your%20portfolio%20and%20I'm%20interested!" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/2349127023717?text=Hello%20Kingsley%2C%20I%20saw%20your%20portfolio%20and%20I'm%20interested!" class="whatsapp-float" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
 
-<!-- Tawk.to (original working script) -->
+<!-- Tawk.to -->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-function keepTawkWidgetVisible() {
-  var widgets = document.querySelectorAll('iframe[title*="chat" i], iframe[title*="Tawk" i], iframe[src*="tawk.to"]');
-  widgets.forEach(function(widget) {
-    widget.style.setProperty('position', 'fixed', 'important');
-    widget.style.setProperty('right', '12px', 'important');
-    widget.style.setProperty('bottom', '12px', 'important');
-    widget.style.setProperty('z-index', '2147483647', 'important');
-    widget.style.setProperty('opacity', '1', 'important');
-    widget.style.setProperty('visibility', 'visible', 'important');
-    widget.style.setProperty('pointer-events', 'auto', 'important');
-  });
-  if (typeof Tawk_API.showWidget === 'function') {
-    Tawk_API.showWidget();
-  }
-}
-Tawk_API.customStyle = {
-  visibility: {
-    desktop: {
-      position: 'br',
-      xOffset: 20,
-      yOffset: 20
-    },
-    mobile: {
-      position: 'br',
-      xOffset: 12,
-      yOffset: 12
-    }
-  }
-};
-Tawk_API.onLoad = function() {
-  keepTawkWidgetVisible();
-  setTimeout(keepTawkWidgetVisible, 500);
-  setTimeout(keepTawkWidgetVisible, 1500);
-};
-setInterval(keepTawkWidgetVisible, 3000);
 (function(){
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
 s1.async=true;
@@ -1172,24 +786,23 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 
+<script src="firebase-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   AOS.init({ duration: 700, once: false, mirror: false, offset: 70 });
 
-  window.addEventListener('load', () => { 
-    setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 600); 
+  window.addEventListener('load', () => {
+    setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 600);
     document.querySelectorAll('.skill-progress').forEach(p => { let w = p.style.width; p.style.width = '0'; setTimeout(() => p.style.width = w, 200); });
   });
 
   const scrollBtn = document.getElementById("scrollTopBtn");
-  window.addEventListener('scroll', () => {
-    scrollBtn.style.display = window.scrollY > 250 ? "flex" : "none";
-  }, { passive: true });
+  window.addEventListener('scroll', () => { scrollBtn.style.display = window.scrollY > 250 ? "flex" : "none"; }, { passive: true });
   scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // typed effect
-  const words = ['Web Developer', 'UI/UX Designer', 'Problem Solver', 'Creative Thinker'];
+  // Typed effect
+  const words = ['Web Developer', 'UI/UX Designer', 'IT Support Specialist', 'Problem Solver'];
   let idx = 0, ch = 0, del = false;
   const typedEl = document.getElementById('typed-words');
   function typeEffect() {
@@ -1202,80 +815,143 @@ s0.parentNode.insertBefore(s1,s0);
   }
   typeEffect();
 
-  // toast
-  const toastDiv = document.getElementById('toastNotification');
-  function showToast() { toastDiv.classList.add('show'); setTimeout(() => toastDiv.classList.remove('show'), 2000); }
-  document.querySelectorAll('.project-btn').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); showToast(); }));
-
-  // project filters
-  const filters = document.querySelectorAll('.filter-btn');
-  const projectItems = document.querySelectorAll('.project-item');
-  filters.forEach(f => f.addEventListener('click', () => {
-    filters.forEach(btn => btn.classList.remove('active'));
-    f.classList.add('active');
-    let filterVal = f.dataset.filter;
-    projectItems.forEach(item => {
+  // Project filters
+  document.querySelectorAll('.filter-btn').forEach(f => f.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    let filterVal = this.dataset.filter;
+    document.querySelectorAll('.project-item').forEach(item => {
       if (filterVal === 'all' || item.dataset.category === filterVal) {
         item.style.display = 'block'; setTimeout(() => item.style.opacity = '1', 20);
       } else { item.style.opacity = '0'; setTimeout(() => item.style.display = 'none', 200); }
     });
   }));
 
-  // reviews
-  const revForm = document.getElementById('reviewForm');
-  const revContainer = document.getElementById('userReviews');
-  revForm?.addEventListener('submit', (e) => {
+  // Project image modal
+  function openProjectModal(title, images) {
+    document.getElementById('projectModalTitle').textContent = title;
+    const container = document.getElementById('projectModalImages');
+    container.innerHTML = images.map(img => `
+      <div class="col-md-4 col-6">
+        <img src="${img}" class="project-modal-img" alt="${title}" loading="lazy">
+      </div>`).join('');
+    new bootstrap.Modal(document.getElementById('projectImageModal')).show();
+  }
+
+  // ============================================
+  // FIREBASE LIVE REVIEWS
+  // ============================================
+  function loadReviews() {
+    const container = document.getElementById('firebaseReviewsContainer');
+    db.collection('reviews').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+      if (snapshot.empty) {
+        container.innerHTML = '<div class="col-12 text-center py-4"><p class="text-secondary">No reviews yet. Be the first!</p></div>';
+        return;
+      }
+      container.innerHTML = '';
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        const stars = '★'.repeat(d.rating || 5) + '☆'.repeat(5 - (d.rating || 5));
+        container.innerHTML += `
+          <div class="col-md-6 mb-4" data-aos="fade-up">
+            <div class="testimonial-card">
+              <i class="fas fa-quote-left fa-2x text-accent"></i>
+              <div class="testimonial-text">"${escapeHtml(d.message)}"</div>
+              <div class="testimonial-author"><strong>${escapeHtml(d.name)}</strong></div>
+              <div class="testimonial-stars">${stars}</div>
+              <small class="text-secondary">${new Date(d.createdAt).toLocaleDateString()}</small>
+            </div>
+          </div>`;
+      });
+    }, error => {
+      container.innerHTML = '<div class="col-12 text-center py-4"><p class="text-secondary">Reviews loading...</p></div>';
+    });
+  }
+
+  // Submit review to Firebase
+  document.getElementById('reviewForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
-    let name = document.getElementById('reviewerName').value.trim();
-    let msg = document.getElementById('reviewMessage').value.trim();
-    let rating = document.querySelector('input[name="rating"]:checked');
-    if (!name || !msg) return alert('Please fill name and review');
-    if (!rating) return alert('Select a rating');
-    let stars = '★'.repeat(parseInt(rating.value)) + '☆'.repeat(5-parseInt(rating.value));
-    let card = document.createElement('div');
-    card.className = 'card p-3 mb-3';
-    card.innerHTML = `<h6 class="text-accent">${escapeHtml(name)}</h6><div class="mb-1" style="color:#e10600">${stars}</div><p>${escapeHtml(msg)}</p><small>${new Date().toLocaleDateString()}</small>`;
-    revContainer.prepend(card);
-    revForm.reset();
-    let success = document.createElement('div'); success.className = 'alert alert-success mt-2'; success.innerText = 'Thanks for your review!';
-    revForm.appendChild(success); setTimeout(() => success.remove(), 2500);
+    const name = document.getElementById('reviewerName').value.trim();
+    const message = document.getElementById('reviewMessage').value.trim();
+    const ratingEl = document.querySelector('input[name="rating"]:checked');
+    if (!name || !message) return alert('Please fill in all fields');
+    if (!ratingEl) return alert('Please select a rating');
+    
+    const btn = this.querySelector('button');
+    const origText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    btn.disabled = true;
+
+    db.collection('reviews').add({
+      name: name,
+      message: message,
+      rating: parseInt(ratingEl.value),
+      createdAt: Date.now()
+    }).then(() => {
+      this.reset();
+      btn.innerHTML = origText;
+      btn.disabled = false;
+      const toast = document.getElementById('toastNotification');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }).catch(err => {
+      alert('Error submitting review. Please try again.');
+      btn.innerHTML = origText;
+      btn.disabled = false;
+    });
   });
 
-  // contact form
-  document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+  // Load reviews on start
+  loadReviews();
+
+  // Contact form
+  document.getElementById('contactForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
-    let btn = e.target.querySelector('button');
-    let orig = btn.innerHTML;
+    const btn = this.querySelector('button');
+    const orig = btn.innerHTML;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     btn.disabled = true;
     setTimeout(() => {
-      let done = document.createElement('div'); done.className = 'alert alert-success mt-4'; done.innerHTML = '<i class="fas fa-check-circle"></i> Message sent! I\'ll reply within 24 hours.';
-      e.target.appendChild(done);
-      e.target.reset();
+      const done = document.createElement('div');
+      done.className = 'alert alert-success mt-4';
+      done.innerHTML = '<i class="fas fa-check-circle"></i> Message sent! I\'ll reply within 24 hours.';
+      this.appendChild(done);
+      this.reset();
       btn.innerHTML = orig;
       btn.disabled = false;
       setTimeout(() => done.remove(), 4000);
     }, 1200);
   });
 
-  // count animation
+  // Count animation
   const counters = [
-    { el: document.getElementById('projectsCount'), target: 50, suffix: '' },
-    { el: document.getElementById('clientsCount'), target: 40, suffix: '' },
+    { el: document.getElementById('projectsCount'), target: 50, suffix: '+' },
+    { el: document.getElementById('clientsCount'), target: 40, suffix: '+' },
     { el: document.getElementById('deliveryCount'), target: 100, suffix: '%' },
     { el: document.getElementById('ratingCount'), target: 5, suffix: '.0' }
   ];
   function animateCounters() {
-    counters.forEach(c => { if(c.el) { c.el.innerText = '0' + c.suffix; let curr = 0; let step = c.target / 45; let upd = setInterval(() => { curr += step; if(curr >= c.target) { c.el.innerText = c.target + c.suffix; clearInterval(upd); } else c.el.innerText = Math.floor(curr) + c.suffix; }, 18); } });
+    counters.forEach(c => {
+      if(c.el) {
+        c.el.innerText = '0' + c.suffix;
+        let curr = 0;
+        let step = c.target / 45;
+        let upd = setInterval(() => {
+          curr += step;
+          if(curr >= c.target) { c.el.innerText = c.target + c.suffix; clearInterval(upd); }
+          else c.el.innerText = Math.floor(curr) + c.suffix;
+        }, 18);
+      }
+    });
   }
   let animating = false;
-  const trustObs = new IntersectionObserver((entries) => {
+  const trustObs = new IntersectionObserver(entries => {
     if(entries[0].isIntersecting && !animating) { animating = true; animateCounters(); setTimeout(() => animating = false, 1500); }
   }, { threshold: 0.4 });
   const trustSec = document.getElementById('trustSection');
   if(trustSec) trustObs.observe(trustSec);
 
-  // theme toggle
+  // Theme toggle
   const toggle = document.getElementById('themeToggle');
   const themeSpan = document.getElementById('themeText');
   const icon = toggle.querySelector('i');
@@ -1288,134 +964,49 @@ s0.parentNode.insertBefore(s1,s0);
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
   });
 
-  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
-</script>
-<script>
-
-// Performance: Lazy loading for images
-document.querySelectorAll('img').forEach(img => {
-  img.decoding = 'async';
-  if (img.closest('.hero-section')) {
-    img.loading = 'eager';
-    img.fetchPriority = 'high';
-  } else {
-    img.loading = 'lazy';
-  }
-});
-
-// Add page transition loader
-window.addEventListener('beforeunload', () => {
-  document.getElementById('preloader').style.display = 'flex';
-});
-
-// Add typing speed customization
-// (your typed effect is solid, just consider making it configurable)
-
-// Form validation enhancement
-function validateEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-// Navbar-aware smooth scrolling and active state
-const navLinks = document.querySelectorAll('.navbar-nav .nav-link[href^="#"]');
-const navSections = Array.from(navLinks)
-  .map(link => document.querySelector(link.getAttribute('href')))
-  .filter(Boolean);
-
-function getNavOffset() {
-  const nav = document.querySelector('.navbar');
-  return nav ? nav.offsetHeight + 14 : 88;
-}
-
-function setActiveNav() {
-  const offset = getNavOffset() + 8;
-  let currentId = navSections[0]?.id || '';
-
-  navSections.forEach(section => {
-    if (section.getBoundingClientRect().top <= offset) {
-      currentId = section.id;
-    }
+  // Scroll progress
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
   });
 
-  if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 4) {
-    currentId = navSections[navSections.length - 1]?.id || currentId;
+  // Smooth scroll & active nav
+  const navLinks = document.querySelectorAll('.navbar-nav .nav-link[href^="#"]');
+  const navSections = Array.from(navLinks).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  function getNavOffset() { const nav = document.querySelector('.navbar'); return nav ? nav.offsetHeight + 14 : 88; }
+  function setActiveNav() {
+    const offset = getNavOffset() + 8;
+    let currentId = navSections[0]?.id || '';
+    navSections.forEach(s => { if (s.getBoundingClientRect().top <= offset) currentId = s.id; });
+    navLinks.forEach(l => { const isActive = l.getAttribute('href') === `#${currentId}`; l.classList.toggle('active', isActive); });
   }
-
-  navLinks.forEach(link => {
-    const isActive = link.getAttribute('href') === `#${currentId}`;
-    link.classList.toggle('active', isActive);
-    if (isActive) {
-      link.setAttribute('aria-current', 'page');
-    } else {
-      link.removeAttribute('aria-current');
-    }
-  });
-}
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    if (!href || href === '#') return;
-
-    const target = document.querySelector(href);
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
     if (!target) return;
-
     e.preventDefault();
-    const top = target.getBoundingClientRect().top + window.scrollY - getNavOffset();
-    window.scrollTo({ top, behavior: 'smooth' });
-    history.pushState(null, '', href);
-
-    const openMenu = document.querySelector('.navbar-collapse.show');
-    if (openMenu && window.bootstrap) {
-      bootstrap.Collapse.getOrCreateInstance(openMenu).hide();
-    }
-
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - getNavOffset(), behavior: 'smooth' });
     setTimeout(setActiveNav, 250);
-  });
-});
+  }));
+  window.addEventListener('scroll', setActiveNav, { passive: true });
+  setActiveNav();
 
-window.addEventListener('scroll', setActiveNav, { passive: true });
-window.addEventListener('resize', setActiveNav);
-window.addEventListener('load', setActiveNav);
-setActiveNav();
-
-// Smoother transition with system preference detection
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-if (!localStorage.getItem('theme')) {
-  if (prefersDark.matches) {
-    document.body.classList.remove('light-mode');
-  } else {
-    document.body.classList.add('light-mode');
-  }
-}
+  function escapeHtml(str) { return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m] || m); }
 </script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Kingsley Kenechukwu",
-  "jobTitle": "Web Developer",
-  "url": "https://yourdomain.com",
+  "jobTitle": "Web Developer & IT Support Specialist",
+  "url": "https://yourusername.github.io/Kingsleyportfolio/",
   "sameAs": [
     "https://www.linkedin.com/in/ugwu-kingsley-379203282",
-    "https://www.facebook.com/share/18MmvwXQrC/"
+    "https://github.com/kingsdev"
   ]
 }
-
-
-</script>
-<script>
-// Scroll Progress Indicator
-window.addEventListener('scroll', () => {
-  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrolled = (winScroll / height) * 100;
-  const progressBar = document.getElementById('scrollProgress');
-  if (progressBar) {
-    progressBar.style.width = scrolled + '%';
-  }
-});
-
 </script>
 </body>
 </html>
